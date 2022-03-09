@@ -36,3 +36,18 @@ a:visited {
   gap: 1rem;
   list-style: none;
 }
+
+.page-header {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.inventory-list {
+  width: 75%;
+  margin: 0 auto;
+  list-style: none;
+}
+
+.inventory-list li > *:not(:last-child) {
+  margin-right: 5rem;
+}

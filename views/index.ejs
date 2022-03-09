@@ -1,3 +1,15 @@
 <%- include('./partials/layout') %> 
+
+<h2 class="page-header">Inventory</h2>
+
+<ul class="inventory-list">
+  <li><strong>Category</strong> <strong>Product</strong> <strong>Price</strong></li>
+  <hr>
+  <% for(category of categories) { %> 
+    <li><span><%=category.name %></span> <button>+ <%=category.name %> </button> </li>
+    <hr>
+    <% } %> 
+</ul>
+
   </body>
 </html>

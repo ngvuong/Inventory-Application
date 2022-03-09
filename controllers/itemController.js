@@ -5,6 +5,7 @@ const Item = require('../models/item');
 const Category = require('../models/category');
 const Brand = require('../models/brand');
 
-exports.index = function (req, res) {
-  res.render('index', { title: 'Badminton Inventory' });
+exports.index = async function (req, res) {
+  const categories = await Category.find({});
+  res.render('index', { title: 'Badminton Inventory', categories });
 };
