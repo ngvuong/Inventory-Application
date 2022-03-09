@@ -13,7 +13,7 @@ const app = express();
 const dev_db_url =
   'mongodb+srv://envee:envee@inventory.iae7t.mongodb.net/Inventory-Application?retryWrites=true&w=majority';
 const mongoDB = process.env.MONGODB_URI || dev_db_url;
-mongoose.connect(mongoDB, { useNewUrlParams: true, useUnifiedTopology: true });
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 // Default connection
 const db = mongoose.connection;
 
@@ -31,7 +31,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/catalog', catalogRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

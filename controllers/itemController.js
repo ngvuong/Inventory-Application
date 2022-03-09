@@ -5,4 +5,6 @@ const Item = require('../models/item');
 const Category = require('../models/category');
 const Brand = require('../models/brand');
 
-exports.index = function (req, res) {};
+exports.index = function (req, res) {
+  res.render('index', { title: 'Badminton Inventory' });
+};
