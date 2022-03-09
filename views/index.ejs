@@ -3,13 +3,32 @@
 <h2 class="page-header">Inventory</h2>
 
 <ul class="inventory-list">
-  <li><strong>Category</strong> <strong>Product</strong> <strong>Price</strong></li>
-  <hr>
+  <li>
+    <strong>Category</strong>
+    <strong>Product</strong> 
+    <strong>Price</strong>
+    <strong>Qty</strong>
+    <span></span>
+  </li>
   <% for(category of categories) { %> 
-    <li><span><%=category.name %></span> <button>+ <%=category.name %> </button> </li>
+    <li>
+      <span><%=category.name %></span>
+      <select name="product">
+        <option value="choose">Choose a product</option>
+        <% for(item of items) { %> 
+          <% if(item.category.name === category.name) { %> 
+            <% const name = item.name.split(' ').join('-')%> 
+            <option value=<%=name%> ><%=item.name %> </option>
+            <% } %> 
+          <% } %> 
+      </select>
+      <span>$0 </span>
+      <input type="number" value="0">
+      <button>×</button>
+    </li>
+    <button>+</button> 
     <hr>
     <% } %> 
 </ul>
-
-  </body>
+</body>
 </html>

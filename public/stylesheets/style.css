@@ -18,6 +18,10 @@ a:visited {
   text-decoration: none;
 }
 
+ul {
+  list-style: none;
+}
+
 .header {
   position: sticky;
   top: 0;
@@ -34,7 +38,6 @@ a:visited {
 .nav ul {
   display: flex;
   gap: 1rem;
-  list-style: none;
 }
 
 .page-header {
@@ -43,11 +46,27 @@ a:visited {
 }
 
 .inventory-list {
-  width: 75%;
+  width: 70%;
   margin: 0 auto;
-  list-style: none;
 }
 
-.inventory-list li > *:not(:last-child) {
-  margin-right: 5rem;
+.inventory-list li:first-child {
+  border-bottom: 2px solid #000;
+}
+
+.inventory-list li {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) 0.2fr;
+  justify-items: start;
+  gap: 1rem;
+}
+
+.inventory-list button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  font-size: 3rem;
+  font-weight: bolder;
 }
