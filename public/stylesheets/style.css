@@ -33,6 +33,7 @@ ul {
 
 .title {
   margin: 1rem 0;
+  font-size: clamp(2rem, 5vw, 3.2rem);
 }
 
 .nav ul {
@@ -60,6 +61,7 @@ ul {
   justify-items: start;
   align-items: center;
   gap: 1rem;
+  padding: 1rem 0;
 }
 
 .inventory-list button {
@@ -70,8 +72,26 @@ ul {
   height: 3rem;
   font-size: 3rem;
   font-weight: bolder;
+  border: none;
+  background: transparent;
+}
+
+.btn-remove {
+  color: #ff5a5a;
+}
+
+.btn-add {
+  color: #5aff5a;
+}
+
+.item-select {
+  font-size: inherit;
 }
 
 .item-qty {
   width: 5rem;
+}
+
+.total-price {
+  grid-column: 3;
 }

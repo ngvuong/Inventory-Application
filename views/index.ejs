@@ -8,7 +8,6 @@
     <strong>Product</strong> 
     <strong>Price</strong>
     <strong>Qty</strong>
-    <span></span>
   </li>
   <% for(category of categories) { %> 
     <li>
@@ -21,55 +20,17 @@
             <% } %> 
           <% } %> 
       </select>
-      <span class="item-price">$ 0</span>
-      <input type="number" class="item-qty" value="0" min="0">
-      <!-- <button class="btn-remove">×</button> -->
+      <span class="item-price">$0</span>
+      <input type="number" class="item-qty" value="0" min="0" max="0">
     </li>
     <button class="btn-add">+</button> 
     <hr>
     <% } %> 
+  <li>
+    <div class="total-price"></div>
+  </li>
 </ul>
-<script>
-  const selects = document.querySelectorAll('.item-select')
-  
-  const selectItem = (e) => {
-    const [price, stock] = e.target.value.split('-');
-    const priceElement = e.target.nextElementSibling;
-    const qtyElement = priceElement.nextElementSibling;
-    priceElement.textContent = `$ ${price}`
-    if(0 === parseInt(price)) {
-      qtyElement.value = 0
-    } else qtyElement.value = 1; 
-    
-    qtyElement.max = stock;
-  }
 
-  selects.forEach(select => select.addEventListener('change', selectItem))
-
-  const addBtns = document.querySelectorAll('.btn-add')
-
-  const removeRow = (e) => {
-    inventoryList.removeChild(e.target.parentElement)
-  }
-
-  const addRow = (e) => {
-    const li = e.target.previousElementSibling
-    const liCopy = li.cloneNode(true)
-    const removeBtn = document.createElement('button')
-
-    removeBtn.className = 'btn-remove'
-    removeBtn.textContent = '×'
-    removeBtn.addEventListener('click', removeRow, {once: true})
-    liCopy.appendChild(removeBtn)
-
-    li.insertAdjacentElement('afterend', liCopy)
-    liCopy.querySelector('.item-select').addEventListener('change', selectItem)
-  }
-
-  addBtns.forEach(btn => btn.addEventListener('click', addRow));
-
-  const inventoryList = document.querySelector('.inventory-list')
-  
-</script>
+<script src="javascripts/inventory.js"></script>
 </body>
 </html>
