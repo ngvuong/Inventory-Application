@@ -51,8 +51,12 @@ ul {
   margin: 0 auto;
 }
 
-.inventory-list li:first-child {
+.list-headers {
   border-bottom: 2px solid #000;
+}
+
+.list-headers * {
+  font-weight: bolder;
 }
 
 .inventory-list li {
@@ -94,9 +98,11 @@ ul {
 
 .total {
   grid-column: 2;
+  justify-self: end;
   font-weight: bolder;
 }
 
 .total-price {
   grid-column: 3;
+  font-weight: bolder;
 }

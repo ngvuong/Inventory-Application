@@ -3,14 +3,14 @@
 <h2 class="page-header">Inventory</h2>
 
 <ul class="inventory-list">
-  <li>
-    <strong>Category</strong>
-    <strong>Product</strong> 
-    <strong>Price</strong>
-    <strong>Qty</strong>
+  <li class="list-headers">
+    <span>Category</span>
+    <span>Product</span> 
+    <span>Price</span>
+    <span>Qty</span>
   </li>
   <% for(category of categories) { %> 
-    <li>
+    <li class="product-row">
       <span><%=category.name %></span>
       <select name="product" class="item-select">
         <option value="0-0">Choose a product</option>
@@ -28,7 +28,7 @@
     <% } %> 
   <li>
     <div class="total">Total:</div>
-    <div class="total-price"></div>
+    <div class="total-price">$0</div>
   </li>
 </ul>
 
