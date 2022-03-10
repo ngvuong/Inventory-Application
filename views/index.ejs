@@ -1,37 +1,38 @@
 <%- include('./partials/layout') %> 
 
 <h2 class="page-header">Inventory</h2>
+<main>
 
-<ul class="inventory-list">
-  <li class="list-headers">
+  <ul class="inventory-list">
+    <li class="list-headers">
     <span>Category</span>
-    <span>Product</span> 
-    <span>Price</span>
-    <span>Qty</span>
-  </li>
-  <% for(category of categories) { %> 
-    <li class="product-row">
-      <span><%=category.name %></span>
-      <select name="product" class="item-select">
-        <option value="0-0">Choose a product</option>
-        <% for(item of items) { %> 
-          <% if(item.category.name === category.name) { %> 
-            <option value=<%=`${item.price}-${item.stock}`%> ><%=item.name %> </option>
-            <% } %> 
-          <% } %> 
-      </select>
-      <span class="item-price">$0</span>
-      <input type="number" class="item-qty" value="0" min="0" max="0">
+      <span>Product</span> 
+      <span>Price</span>
+      <span>Qty</span>
     </li>
-    <button class="btn-add">+</button> 
-    <hr>
-    <% } %> 
-  <li>
-    <div class="total">Total:</div>
-    <div class="total-price">$0</div>
-  </li>
-</ul>
-
-<script src="javascripts/inventory.js"></script>
+    <% for(category of categories) { %> 
+      <li class="product-row">
+        <span><%=category.name %></span>
+        <select name="product" class="item-select">
+          <option value="0-0">Choose a product</option>
+          <% for(item of items) { %> 
+            <% if(item.category.name === category.name) { %> 
+              <option value=<%=`${item.price}-${item.stock}`%> ><%=item.name %> </option>
+              <% } %> 
+            <% } %> 
+        </select>
+        <span class="item-price">$0</span>
+        <input type="number" class="item-qty" value="0" min="0" max="0">
+      </li>
+      <button class="btn-add">+</button> 
+      <hr>
+      <% } %> 
+    <li>
+      <div class="total">Total:</div>
+      <div class="total-price">$0</div>
+    </li>
+  </ul>
+</main>
+<script src="/javascripts/inventory.js"></script>
 </body>
 </html>

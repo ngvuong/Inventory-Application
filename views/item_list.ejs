@@ -1,0 +1,30 @@
+<%- include('./partials/layout') %>
+
+<h2 class="page-header">Product Catalog</h2>
+<main>
+
+<ul class="product-list">
+  <li class="list-headers">
+    <span>Product</span>
+    <span>Description</span>
+    <span>Category</span>
+    <span>Brand</span>
+    <span>Price</span>
+    <span>Stock</span>
+  </li>
+  <% for(item of items) {%>
+    <li class="product-row">
+      <span><%= item.name %> </span>
+      <span><%= item.description %></span>
+      <span><%= item.category.name %></span>
+      <span><%= item.brand.name %> </span>
+      <span><%= item.price %> </span>
+      <span><%= item.stock %></span>
+    </li>
+    <hr>
+    <% } %>  
+</ul>
+</main>
+
+</body>
+</html>
