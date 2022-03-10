@@ -1,6 +1,7 @@
 const selects = document.querySelectorAll('.item-select');
 const inventoryList = document.querySelector('.inventory-list');
 const addBtns = document.querySelectorAll('.btn-add');
+const qtyInputs = document.querySelectorAll('.item-qty');
 let totalPrice = 0;
 
 const selectItem = (e) => {
@@ -13,14 +14,20 @@ const selectItem = (e) => {
   } else qtyElement.value = 1;
 
   qtyElement.max = stock;
-
-  totalPrice += price * qtyElement.value;
 };
 
 selects.forEach((select) => select.addEventListener('change', selectItem));
 
 const removeRow = (e) => {
   inventoryList.removeChild(e.target.parentElement);
+};
+
+const calculateTotal = (e) => {
+  const parent = e.target.parentElement;
+  const price = +parent.querySelector('.item-price').textContent.substring(1);
+  const qty = +parent.querySelector('.item-qty').value;
+  totalPrice += price * qty;
+  document.querySelector('.total-price').textContent = `$${totalPrice}`;
 };
 
 const addRow = (e) => {
@@ -42,8 +49,9 @@ const addRow = (e) => {
 
   li.insertAdjacentElement('afterend', liCopy);
   liCopy.querySelector('.item-select').addEventListener('change', selectItem);
+  liCopy.querySelector('.item-qty').addEventListener('change', calculateTotal);
 };
 
 addBtns.forEach((btn) => btn.addEventListener('click', addRow));
 
-document.querySelector('.total-price').textContent = `$${totalPrice}`;
+qtyInputs.forEach((input) => input.addEventListener('change', calculateTotal));

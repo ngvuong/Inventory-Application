@@ -92,6 +92,11 @@ ul {
   width: 5rem;
 }
 
+.total {
+  grid-column: 2;
+  font-weight: bolder;
+}
+
 .total-price {
   grid-column: 3;
 }
