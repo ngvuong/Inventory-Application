@@ -13,22 +13,63 @@
   <% for(category of categories) { %> 
     <li>
       <span><%=category.name %></span>
-      <select name="product">
-        <option value="choose">Choose a product</option>
+      <select name="product" class="item-select">
+        <option value="0-0">Choose a product</option>
         <% for(item of items) { %> 
           <% if(item.category.name === category.name) { %> 
-            <% const name = item.name.split(' ').join('-')%> 
-            <option value=<%=name%> ><%=item.name %> </option>
+            <option value=<%=`${item.price}-${item.stock}`%> ><%=item.name %> </option>
             <% } %> 
           <% } %> 
       </select>
-      <span>$0 </span>
-      <input type="number" value="0">
-      <button>×</button>
+      <span class="item-price">$ 0</span>
+      <input type="number" class="item-qty" value="0" min="0">
+      <!-- <button class="btn-remove">×</button> -->
     </li>
-    <button>+</button> 
+    <button class="btn-add">+</button> 
     <hr>
     <% } %> 
 </ul>
+<script>
+  const selects = document.querySelectorAll('.item-select')
+  
+  const selectItem = (e) => {
+    const [price, stock] = e.target.value.split('-');
+    const priceElement = e.target.nextElementSibling;
+    const qtyElement = priceElement.nextElementSibling;
+    priceElement.textContent = `$ ${price}`
+    if(0 === parseInt(price)) {
+      qtyElement.value = 0
+    } else qtyElement.value = 1; 
+    
+    qtyElement.max = stock;
+  }
+
+  selects.forEach(select => select.addEventListener('change', selectItem))
+
+  const addBtns = document.querySelectorAll('.btn-add')
+
+  const removeRow = (e) => {
+    inventoryList.removeChild(e.target.parentElement)
+  }
+
+  const addRow = (e) => {
+    const li = e.target.previousElementSibling
+    const liCopy = li.cloneNode(true)
+    const removeBtn = document.createElement('button')
+
+    removeBtn.className = 'btn-remove'
+    removeBtn.textContent = '×'
+    removeBtn.addEventListener('click', removeRow, {once: true})
+    liCopy.appendChild(removeBtn)
+
+    li.insertAdjacentElement('afterend', liCopy)
+    liCopy.querySelector('.item-select').addEventListener('change', selectItem)
+  }
+
+  addBtns.forEach(btn => btn.addEventListener('click', addRow));
+
+  const inventoryList = document.querySelector('.inventory-list')
+  
+</script>
 </body>
 </html>
