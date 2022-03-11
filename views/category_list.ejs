@@ -1,0 +1,21 @@
+<%- include('./partials/layout') %> 
+
+<h2 class="page-header">Product Categories</h2>
+
+<main>
+
+<ul class="category-list">
+  <li>
+    <a href="/catalog/category/create">+ New Category</a>
+  </li>
+  <% for(category of categories) { %> 
+    <li>
+      <a href=<%= category.url%> >
+        <%= category.name %> 
+      </a>
+    </li>
+    <% } %> 
+</ul>
+</main>
+</body>
+</html>

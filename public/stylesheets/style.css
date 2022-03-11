@@ -1,6 +1,7 @@
 :root {
   --color-white: #e8e8e8;
-  --color-link: #4f8efb;
+  /* --color-link: #4f8efb; */
+  --color-link: #ffcc20;
 }
 
 *,
@@ -27,11 +28,13 @@ textarea {
 
 a:link,
 a:visited {
-  color: inherit;
+  color: var(--color-link);
   text-decoration: none;
 }
 
 ul {
+  width: 70%;
+  margin: 0 auto;
   list-style: none;
 }
 
@@ -41,8 +44,11 @@ ul {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  color: var(--color-white);
   background-color: #333;
+}
+
+.header a {
+  color: var(--color-white);
 }
 
 .title {
@@ -90,11 +96,6 @@ ul {
   align-items: center;
   gap: 1rem;
   padding: 1rem 0;
-}
-
-.product-row a,
-.product-info a {
-  color: var(--color-link);
 }
 
 .inventory-list button {
@@ -156,6 +157,26 @@ ul {
   padding: 1rem 0;
 }
 
+/* Category list */
+
+.category-list {
+  width: 50%;
+}
+
+.category-list li {
+  font-size: 2rem;
+  padding: 1rem 0;
+}
+
+.category-list a {
+  display: inline-block;
+  width: 100%;
+}
+
+.category-list a:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   .nav-menu {
     position: relative;
@@ -188,7 +209,8 @@ ul {
 
 @media (max-width: 600px) {
   .inventory-list,
-  .product-list {
+  .product-list,
+  .category-list {
     width: 95%;
   }
 }

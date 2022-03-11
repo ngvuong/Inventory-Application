@@ -27,9 +27,9 @@ router.get('/items', item_controller.item_list);
 
 // Category routes
 
-// router.get('/category/:id', category_controller.category_detail);
+router.get('/categories', category_controller.category_list);
 
-// router.get('/categories', category_controller.category_list);
+// router.get('/category/:id', category_controller.category_detail);
 
 // router.get('/category/create', category_controller.category_create_get);
 
@@ -45,9 +45,9 @@ router.get('/items', item_controller.item_list);
 
 // Brand routes
 
-// router.get('/brand/:id', brand_controller.brand_detail);
-
 // router.get('/brands', brand_controller.brand_list);
+
+// router.get('/brand/:id', brand_controller.brand_detail);
 
 // router.get('/brand/create', brand_controller.brand_create_get);
 
