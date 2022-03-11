@@ -12,7 +12,7 @@
     </li>
     <% for(category of categories) { %> 
       <li class="product-row">
-        <span><%=category.name %></span>
+        <a href=<%= category.url %> ><%=category.name %></a>
         <select name="product" class="item-select">
           <option value="0-0">Choose a product</option>
           <% for(item of items) { %> 

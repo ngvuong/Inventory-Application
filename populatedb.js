@@ -73,7 +73,7 @@ function brandCreate(name, description, country, cb) {
 }
 
 function createCategories(cb) {
-  async.parallel(
+  async.series(
     [
       function (callback) {
         categoryCreate('Racket', 'Badminton rackets', callback);
@@ -93,7 +93,7 @@ function createCategories(cb) {
 }
 
 function createBrands(cb) {
-  async.parallel(
+  async.series(
     [
       function (callback) {
         brandCreate(
