@@ -23,3 +23,13 @@ exports.item_list = async function (req, res, next) {
     next(err);
   }
 };
+
+exports.item_detail = async function (req, res, next) {
+  const { id } = req.params;
+  try {
+    const item = await Item.findById(id).populate('category').populate('brand');
+    res.render('item_detail', { title: item.name, item });
+  } catch (err) {
+    next(err);
+  }
+};

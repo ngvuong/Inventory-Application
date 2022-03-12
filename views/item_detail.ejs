@@ -1,0 +1,44 @@
+<%- include('./partials/layout')%> 
+
+<h2 class="page-header"><%= item.brand.name%> <%= item.name%> </h2>
+
+<main class="product-detail">
+
+<% const name = `${item.brand.name} ${item.name}`.split(' ').join('-') %> 
+<img src="" class="item-image" alt=<%= name %> >
+
+<p class="item-description">
+  <%= item.description%> 
+</p>
+
+<ul class="info-list">
+  <li>
+    <span>Price</span>
+    <span>$<%= item.price%> </span>
+  </li>
+  <hr>
+  <li>
+    <span>Stock</span>
+    <span><%= item.stock%> </span>
+  </li>
+  <hr>
+  <li>
+    <span>Type</span> 
+    <a href=<%= item.category.url%> ><%= item.category.name%></a> 
+  </li>
+  <hr>
+  <li>
+    <span>Brand</span> 
+    <a href=<%= item.brand.url%> > <%= item.brand.name %> </a>
+  </li>
+  <hr>
+  <li>
+    <span>Country</span>
+    <span><%= item.brand.country%> </span> 
+  </li>
+  <hr>
+</ul>
+
+</main>
+</body>
+</html>
