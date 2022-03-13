@@ -1,0 +1,30 @@
+<%- include('./partials/layout')%> 
+
+<h2 class="page-header category-description"><%= category.description %> </h2>
+
+<main>
+
+<% const name = category.name.substr(-1) === 's' ? category.name : category.name + 's' %> 
+<p class="category-available"><%= name %> Available</p>
+
+<ul class="product-list category-detail">
+  <li class="list-headers">
+    <span>Product</span>
+    <span>Price</span>
+    <span>Stock</span>
+  </li>
+  <% for(item of items) { %> 
+    <% if(item.category.name === category.name) {%> 
+      <li class="product-info">
+        <a href=<%= item.url %> ><%= item.brand.name %> <%= item.name %> </a>
+        <span>$<%= item.price %> </span>
+        <span><%= item.stock %></span>
+      </li>
+      <hr>
+    <% } %> 
+  <% } %> 
+</ul>
+
+</main>
+</body>
+</html>
