@@ -5,7 +5,13 @@
 <main class="product-detail">
 
 <% const name = `${item.brand.name} ${item.name}`.split(' ').join('-') %> 
-<img src="" class="item-image" alt=<%= name %> >
+<div class="img-container">
+  <% if(item.img_src) { %> 
+    <img src=<%= item.img_src %>  class="item-image" alt=<%= name %> >
+  <% } else { %>
+      <span>?</span>
+    <% } %>  
+</div>
 
 <p class="item-description">
   <%= item.description%> 

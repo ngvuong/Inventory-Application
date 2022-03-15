@@ -8,6 +8,7 @@ const ItemSchema = new Schema({
   brand: { type: Schema.Types.ObjectId, ref: 'Brand', required: true },
   price: { type: Number, required: true },
   stock: { type: Number, required: true },
+  img_src: { type: String },
 });
 
 ItemSchema.virtual('url').get(function () {

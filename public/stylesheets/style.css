@@ -32,6 +32,11 @@ a:visited {
   text-decoration: none;
 }
 
+a:link:hover,
+a:visited:hover {
+  text-decoration: underline;
+}
+
 ul {
   width: 70%;
   margin: 0 auto;
@@ -140,6 +145,14 @@ ul {
 
 /* Product catalog page */
 
+.add-product {
+  position: relative;
+  left: 50%;
+  display: inline-block;
+  transform: translate(-50%);
+  margin-bottom: 3rem;
+}
+
 .product-list {
   width: 70%;
   margin: 0 auto;
@@ -189,9 +202,23 @@ ul {
   text-align: center;
 }
 
-.item-image {
-  width: 15vw;
+.img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20vw;
   height: 15vw;
+  background-color: #333;
+  margin: 0 auto;
+}
+
+.img-container span {
+  color: var(--color-link);
+  font-size: 5vw;
+}
+
+.item-image {
+  width: 100%;
 }
 
 .item-description {
