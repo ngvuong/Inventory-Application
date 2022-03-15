@@ -33,3 +33,26 @@ exports.item_detail = async function (req, res, next) {
     next(err);
   }
 };
+
+exports.item_create_get = function (req, res, next) {
+  async.parallel(
+    {
+      categories: function (callback) {
+        Category.find(callback);
+      },
+      brands: function (callback) {
+        Brand.find(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      res.render('item_form', {
+        title: 'New Product',
+        categories: results.categories,
+        brands: results.brands,
+      });
+    }
+  );
+};

@@ -1,0 +1,51 @@
+<%- include('./partials/layout')%> 
+
+<h2 class="page-header"><%= title %></h2>
+
+<form method="POST" action="" class="new-product">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" placeholder="Product Name" required value=<% item ? item.name : '' %> >
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea name="description" id="description" cols="10" rows="5" placeholder="Product Description" required><% item ? item.description : '' %></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="category">Category</label>
+    <select name="category" id="category" required>
+    <% for(category of categories) { %> 
+      <option value=<%= category._id %> ><%=category.name %> </option>
+    <% } %> 
+  </select>
+  </div>
+
+  <div class="form-group">
+    <label for="brand">Brand</label>
+    <select name="brand" id="brand" required>
+      <% for(brand of brands) {%> 
+        <option value=<%= brand._id %> ><%= brand.name %> </option>
+      <% } %> 
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="price">Price</label>
+    <input type="number" id="price" name="price" required>
+  </div>
+
+  <div class="form-group">
+    <label for="stock">Stock</label>
+    <input type="number" id="stock" name="stock" required>
+  </div>
+
+  <div class="form-group">
+    <label for="image">Image</label>
+    <input type="file" name="image" id="image">
+  </div>
+</form>
+
+</body>
+</html>
