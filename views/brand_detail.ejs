@@ -1,0 +1,32 @@
+<%- include('./partials/layout')%> 
+
+<h2 class="page-header"><%= brand.name %> </h2>
+
+<main>
+
+<p class="brand-available"><%= brand.name %> Products Available</p>
+
+<ul class="product-list">
+  <li class="list-headers">
+    <span>Product</span>
+    <span>Category</span>
+    <span>Price</span>
+    <span>Stock</span>
+  </li>
+  <% for(item of items) { %> 
+    <% if(item.brand.name === brand.name) { %> 
+      <li class="product-info">
+        <a href=<%= item.url %> > <%= item.brand.name %> <%= item.name %> </a>
+        <a href=<%= item.category.url %> > <%= item.category.name %> </a>
+        <span>$<%= item.price %> </span>
+        <span> <%= item.stock %> </span>
+      </li>
+      <hr>
+    <% } %> 
+  <% } %> 
+</ul>
+
+</main>
+
+</body>
+</html>

@@ -13,3 +13,14 @@ exports.brand_list = async function (req, res, next) {
     next(err);
   }
 };
+
+exports.brand_detail = async function (req, res, next) {
+  const { id } = req.params;
+  try {
+    const items = await Item.find().populate('category').populate('brand');
+    const brand = await Brand.findById(id);
+    res.render('brand_detail', { title: brand.name, brand, items });
+  } catch (err) {
+    next(err);
+  }
+};

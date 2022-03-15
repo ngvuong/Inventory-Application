@@ -228,6 +228,13 @@ ul {
   text-transform: capitalize;
 }
 
+/* Brand details page */
+
+.brand-available {
+  text-align: center;
+  margin: 2rem 0;
+}
+
 @media (max-width: 768px) {
   .nav-menu {
     position: relative;
