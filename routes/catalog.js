@@ -1,7 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const upload = multer({ dest: '../public/images' });
+
+const imageStorage = multer.diskStorage({
+  destination: 'public/images',
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+const imageUpload = multer({
+  storage: imageStorage,
+  limits: {
+    fileSize: 1000000,
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) {
+      return cb(new Error('Only images are valid'));
+    }
+    cb(null, true);
+  },
+});
 
 const item_controller = require('../controllers/itemController');
 const category_controller = require('../controllers/categoryController');
@@ -15,7 +33,7 @@ router.get('/item/create', item_controller.item_create_get);
 
 router.post(
   '/item/create',
-  upload.single('img_src'),
+  imageUpload.single('img_src'),
   item_controller.item_create_post
 );
 
