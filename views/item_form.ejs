@@ -27,7 +27,7 @@
       <select name="category" id="category" required>
       <% for(category of categories) { %>
         <option value=<%= category._id %> 
-          selected=<% locals.item && item.category._id === category._id ? true: false %> >
+          >
           <%=category.name %> 
         </option>
       <% } %> 
@@ -39,7 +39,7 @@
       <select name="brand" id="brand" required>
         <% for(brand of brands) {%>
           <option value=<%= brand._id %> 
-            selected=<% locals.item && item.brand._id === brand._id ? true: false %> >
+            >
             <%= brand.name %>
           </option>
         <% } %>

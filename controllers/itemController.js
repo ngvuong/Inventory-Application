@@ -95,8 +95,7 @@ exports.item_create_post = [
       stock: req.body.stock,
       img_src: req.body.img_src,
     });
-    console.log(req.body);
-
+    console.log(req.file);
     if (!errors.isEmpty()) {
       async.parallel(
         {
