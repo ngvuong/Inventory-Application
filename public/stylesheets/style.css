@@ -332,6 +332,11 @@ ul {
   border: none;
 }
 
+.error {
+  width: max-content;
+  color: orangered;
+}
+
 @media (max-width: 768px) {
   .nav-menu {
     position: relative;

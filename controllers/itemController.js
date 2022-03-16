@@ -82,15 +82,23 @@ exports.item_create_post = [
     .trim()
     .isLength({ min: 1 })
     .escape(),
-  body('img_src').custom((image, { req }) => {
-    if (req.file.originalname.match(/\.(png|jpeg|jpg)$/)) {
-      return true;
+  body('img_src', 'Invalid file type or file too large').custom(
+    (image, { req }) => {
+      if (
+        !req.file ||
+        (req.file.originalname.match(/\.(png|jpeg|jpg)$/) &&
+          req.file.size < 1000000)
+      ) {
+        return true;
+      }
+      return false;
     }
-    return false;
-  }),
+  ),
   (req, res, next) => {
     const errors = validationResult(req);
-
+    const err = [...errors.array()];
+    err.push({ msg: 'invalid' });
+    console.log(err);
     const item = new Item({
       name: req.body.name,
       description: req.body.description,
@@ -100,7 +108,7 @@ exports.item_create_post = [
       stock: req.body.stock,
       img_src: req.body.img_src,
     });
-    console.log(req.file);
+
     if (!errors.isEmpty()) {
       async.parallel(
         {

@@ -171,7 +171,7 @@ function createItems(cb) {
       function (callback) {
         itemCreate(
           'Lin Dan Hero 2',
-          'Lin Dan Hero 2 badminton shoes with soft cushions are disigned for comfort and speed.',
+          'Lin Dan Hero 2 badminton shoes with soft cushions are designed for comfort and speed.',
           categories[1],
           brands[2],
           99,

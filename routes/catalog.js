@@ -10,15 +10,6 @@ const imageStorage = multer.diskStorage({
 });
 const imageUpload = multer({
   storage: imageStorage,
-  limits: {
-    fileSize: 1000000,
-  },
-  fileFilter(req, file, cb) {
-    if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) {
-      return cb(new Error('Only images are valid'));
-    }
-    cb(null, true);
-  },
 });
 
 const item_controller = require('../controllers/itemController');
