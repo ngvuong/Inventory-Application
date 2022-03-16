@@ -2,15 +2,23 @@
 
 <h2 class="page-header"><%= title %></h2>
 
-<form method="POST" action="" class="new-product">
+<% if(locals.errors) { %> 
+  <ul>
+    <% for(error of errors) { %> 
+      <li><%= error.message %></li>
+      <% } %> 
+  </ul>
+<% } %> 
+
+<form method="POST" action="" class="new-product" enctype="multipart/form-data">
   <div class="form-group">
     <label for="name">Name</label>
-    <input type="text" id="name" name="name" placeholder="Product Name" required value=<% item ? item.name : '' %> >
+    <input type="text" id="name" name="name" placeholder="Product Name" value=<% locals.item ? item.name : '' %> >
   </div>
 
   <div class="form-group">
     <label for="description">Description</label>
-    <textarea name="description" id="description" cols="10" rows="2" placeholder="Product Description" required><% item ? item.description : '' %></textarea>
+    <textarea name="description" id="description" cols="10" rows="2" placeholder="Product Description" required><% locals.item ? item.description : '' %></textarea>
   </div>
 
   <div class="form-group form-group-row">
@@ -18,7 +26,10 @@
       <label for="category">Category</label>
       <select name="category" id="category" required>
       <% for(category of categories) { %>
-        <option value=<%= category._id %> ><%=category.name %> </option>
+        <option value=<%= category._id %> 
+          selected=<% locals.item && item.category._id === category._id ? true: false %> >
+          <%=category.name %> 
+        </option>
       <% } %> 
         </select>
     </div>
@@ -27,33 +38,39 @@
       <label for="brand">Brand</label>
       <select name="brand" id="brand" required>
         <% for(brand of brands) {%>
-          <option value=<%= brand._id %> ><%= brand.name %> </option>
+          <option value=<%= brand._id %> 
+            selected=<% locals.item && item.brand._id === brand._id ? true: false %> >
+            <%= brand.name %>
+          </option>
         <% } %>
       </select>
     </div>
   </div>
  
-
   <div class="form-group form-group-row">
     <div class="sub-group">
       <label for="price">Price</label>
       <div class="price-input">
         <label for="price">$</label>
-        <input type="number" id="price" name="price" min="0" required>
+        <input type="number" id="price" name="price" min="0" value=<% locals.item ? item.price : '' %>  required>
       </div>
     </div>
 
     <div class="sub-group">
       <label for="stock">Stock</label>
-      <input type="number" id="stock" name="stock" min="0" required>
+      <input type="number" id="stock" name="stock" min="0" value=<% locals.item ? item.stock : '' %>  required>
     </div>
   </div>
 
   <div class="form-group">
     <label for="image">Image</label>
-    <input type="file" name="image" id="image">
+    <input type="file" name="img_src" id="image">
   </div>
+
+  <button class="btn-submit">Submit</button>
 </form>
+
+
 
 </body>
 </html>

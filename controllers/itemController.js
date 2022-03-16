@@ -56,3 +56,77 @@ exports.item_create_get = function (req, res, next) {
     }
   );
 };
+
+exports.item_create_post = [
+  body('name', 'Product name must not be empty')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('description', 'Product description must not be empty')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('category', 'Product category must be specified')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('brand', 'Product brand must be specified')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('price', 'Product price must be specified')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('stock', 'Product stock must be specified')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('img_src').escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    const item = new Item({
+      name: req.body.name,
+      description: req.body.description,
+      category: req.body.category,
+      brand: req.body.brand,
+      price: req.body.price,
+      stock: req.body.stock,
+      img_src: req.body.img_src,
+    });
+    console.log(req.body);
+
+    if (!errors.isEmpty()) {
+      async.parallel(
+        {
+          categories: function (callback) {
+            Category.find(callback);
+          },
+          brands: function (callback) {
+            Brand.find(callback);
+          },
+        },
+        function (err, results) {
+          if (err) {
+            return next(err);
+          }
+
+          res.render('item_form', {
+            title: 'New Product',
+            categories: results.categories,
+            brands: results.brands,
+            item,
+            errors: errors.array(),
+          });
+        }
+      );
+      return;
+    } else {
+      // item.save(function (err) {
+      //   if (err) return next(err);
+      //   res.redirect(item.url);
+      // });
+    }
+  },
+];
