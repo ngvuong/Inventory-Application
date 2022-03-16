@@ -82,7 +82,12 @@ exports.item_create_post = [
     .trim()
     .isLength({ min: 1 })
     .escape(),
-  body('img_src').escape(),
+  body('img_src').custom((image, { req }) => {
+    if (req.file.originalname.match(/\.(png|jpeg|jpg)$/)) {
+      return true;
+    }
+    return false;
+  }),
   (req, res, next) => {
     const errors = validationResult(req);
 
