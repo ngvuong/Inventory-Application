@@ -9,7 +9,7 @@
       <% } %> 
   </ul>
 <% } %> 
-<% console.log(category) %> 
+<% console.log(item) %> 
 <form method="POST" action="" class="new-product" enctype="multipart/form-data">
   <div class="form-group">
     <label for="name">Name</label>
@@ -27,6 +27,7 @@
       <select name="category" id="category" required>
       <% for(category of categories) { %>
         <option value=<%= category._id %> 
+          <%= category._id.toString() === item.category._id.toString() ? 'selected' : ''%> 
           >
           <%=category.name %> 
         </option>
@@ -39,6 +40,7 @@
       <select name="brand" id="brand" required>
         <% for(brand of brands) {%>
           <option value=<%= brand._id %> 
+            <%= brand._id.toString() === item.brand._id.toString() ? 'selected' : ''%> 
             >
             <%= brand.name %>
           </option>

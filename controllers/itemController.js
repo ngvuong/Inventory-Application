@@ -100,7 +100,7 @@ exports.item_create_post = [
   ),
   (req, res, next) => {
     const errors = validationResult(req);
-
+    console.log(req.file);
     const item = new Item({
       name: req.body.name,
       description: req.body.description,
@@ -108,7 +108,7 @@ exports.item_create_post = [
       brand: req.body.brand,
       price: req.body.price,
       stock: req.body.stock,
-      img_src: req.body.img_src,
+      img_src: `/images/${req.file.filename}`,
     });
 
     if (!errors.isEmpty()) {
@@ -137,10 +137,12 @@ exports.item_create_post = [
       );
       return;
     } else {
-      // item.save(function (err) {
-      //   if (err) return next(err);
-      //   res.redirect(item.url);
-      // });
+      item.save(function (err) {
+        if (err) return next(err);
+        res.redirect(item.url);
+      });
     }
   },
 ];
+
+exports.item_delete_get = function (req, res, next) {};
