@@ -44,9 +44,8 @@
   <hr>
 </ul>
 
-<form method="POST" action="/catalog/item/<%= item._id %>/delete" class="form-delete">
-  <input type="hidden" name="itemid" value=<%= item._id %> required>
-  <button class="btn-delete">Remove Product</button>
+<form method="GET" action="/catalog/item/<%= item._id %>/delete">
+  <button class="btn-delete">REMOVE PRODUCT</button>
 </form>
 
 </main>

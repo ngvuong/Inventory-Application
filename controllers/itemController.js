@@ -146,13 +146,34 @@ exports.item_create_post = [
   },
 ];
 
-exports.item_delete_post = async function (req, res, next) {
-  const id = req.body.itemid;
+exports.item_delete_get = async function (req, res, next) {
+  const { id } = req.params;
   try {
     const item = await Item.findById(id);
+    res.render('item_delete', { title: 'Delete Product', item });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.item_delete_post = async function (req, res, next) {
+  const { itemid, password } = req.body;
+
+  try {
+    const item = await Item.findById(itemid);
+
+    if (password !== process.env.ADMIN_PASSWORD) {
+      res.render('item_delete', {
+        title: 'Delete Product',
+        item,
+        error: 'Incorrect Password',
+      });
+      return;
+    }
+
     const imgSrc = item.img_src ? 'public/' + item.img_src : '';
 
-    await Item.findByIdAndDelete(id);
+    await Item.findByIdAndDelete(itemid);
     if (imgSrc) {
       fs.unlink(imgSrc, (err) => {
         if (err) next(err);

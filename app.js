@@ -4,15 +4,14 @@ const mongoose = require('mongoose');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+require('dotenv').config();
 
 const indexRouter = require('./routes/index');
 const catalogRouter = require('./routes/catalog');
 const app = express();
 
 // Connect to mongodb
-const dev_db_url =
-  'mongodb+srv://envee:envee@inventory.iae7t.mongodb.net/Inventory-Application?retryWrites=true&w=majority';
-const mongoDB = process.env.MONGODB_URI || dev_db_url;
+const mongoDB = process.env.MONGODB_URI;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 // Default connection
 const db = mongoose.connection;

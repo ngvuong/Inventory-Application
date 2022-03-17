@@ -1,0 +1,22 @@
+<%- include('./partials/layout') %> 
+
+<h2 class="page-header">Remove <%= item.name %> </h2>
+
+<main class="product-delete">
+
+<p class="confirmation">Are you sure you want to remove this product?</p>
+
+<form method="POST" action="/catalog/item/<%= item._id %>/delete">
+  <div class="form-group">
+    <label for="password">ADMIN PASSWORD</label>
+    <input type="password" id="password" name="password">
+  </div>
+  <div class="error"><%= typeof error !== 'undefined' ? error : ''%> </div>
+  <input type="hidden" name="itemid" value="<%= item._id %>">
+  <button class="btn-delete">REMOVE PRODUCT</button>
+  <button class="btn-cancel" type="button"><a href="/catalog/item/<%= item._id %>">CANCEL</a></button>
+</form>
+
+</main>
+</body>
+</html>

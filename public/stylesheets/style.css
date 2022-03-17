@@ -345,18 +345,43 @@ ul {
 
 /* Delete Entries */
 
-.form-delete {
-  margin-top: 2rem;
+.product-delete {
+  max-width: 60%;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.btn-delete {
+.confirmation {
+  margin: 2rem 0;
+}
+
+#password {
+  display: block;
+}
+
+.btn-delete,
+.btn-cancel {
   width: 100%;
-  color: inherit;
+  color: #000;
   font-size: 2rem;
+  font-weight: bolder;
   background-color: var(--color-danger);
   padding: 0.5rem;
   border: none;
+  margin-top: 2rem;
   cursor: pointer;
+}
+
+.btn-cancel {
+  background-color: var(--color-highlight);
+}
+
+.btn-cancel a {
+  color: inherit;
+}
+
+.btn-cancel a:hover {
+  text-decoration: none;
 }
 
 .btn-delete:hover {
