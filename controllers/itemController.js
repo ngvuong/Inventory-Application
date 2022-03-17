@@ -145,4 +145,12 @@ exports.item_create_post = [
   },
 ];
 
-exports.item_delete_get = function (req, res, next) {};
+exports.item_delete_get = async function (req, res, next) {
+  const { id } = req.params;
+  try {
+    const item = await Item.findByIdAndDelete(id);
+    res.redirect('/catalog/items');
+  } catch (err) {
+    next(err);
+  }
+};
