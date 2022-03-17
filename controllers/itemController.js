@@ -100,7 +100,7 @@ exports.item_create_post = [
   ),
   (req, res, next) => {
     const errors = validationResult(req);
-    console.log(req.file);
+
     const item = new Item({
       name: req.body.name,
       description: req.body.description,
@@ -108,9 +108,9 @@ exports.item_create_post = [
       brand: req.body.brand,
       price: req.body.price,
       stock: req.body.stock,
-      img_src: `/images/${req.file.filename}`,
+      img_src: req.file ? `/images/${req.file.filename}` : '',
     });
-
+    console.log(item);
     if (!errors.isEmpty()) {
       async.parallel(
         {
@@ -145,10 +145,18 @@ exports.item_create_post = [
   },
 ];
 
-exports.item_delete_get = async function (req, res, next) {
-  const { id } = req.params;
+exports.item_delete_post = async function (req, res, next) {
+  const id = req.body.itemid;
   try {
-    const item = await Item.findByIdAndDelete(id);
+    const item = await Item.findById(id);
+    const imgSrc = item.img_src ? 'public/' + item.img_src : '';
+
+    await Item.findByIdAndDelete(id);
+    if (imgSrc) {
+      fs.unlink(imgSrc, (err) => {
+        if (err) next(err);
+      });
+    }
     res.redirect('/catalog/items');
   } catch (err) {
     next(err);

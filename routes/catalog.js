@@ -34,7 +34,7 @@ router.post(
 
 // router.get('/item/:id/delete', item_controller.item_delete_get);
 
-// router.post('/item/:id/delete', item_controller.item_delete_post);
+router.post('/item/:id/delete', item_controller.item_delete_post);
 
 router.get('/items', item_controller.item_list);
 

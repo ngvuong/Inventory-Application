@@ -3,6 +3,7 @@
   /* --color-link: #4f8efb; */
   --color-link: #ffcc20;
   --color-highlight: #cddc39;
+  --color-danger: #e91e63;
 }
 
 *,
@@ -223,7 +224,9 @@ ul {
 }
 
 .item-image {
+  object-fit: contain;
   width: 100%;
+  height: 100%;
 }
 
 .item-description {
@@ -335,6 +338,26 @@ ul {
 .error {
   width: max-content;
   color: orangered;
+}
+
+/* Delete Entries */
+
+.form-delete {
+  margin-top: 2rem;
+}
+
+.btn-delete {
+  width: 100%;
+  color: inherit;
+  font-size: 2rem;
+  background-color: var(--color-danger);
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  opacity: 0.5;
 }
 
 @media (max-width: 768px) {
