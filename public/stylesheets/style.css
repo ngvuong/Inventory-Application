@@ -234,6 +234,9 @@ ul {
 }
 
 .info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   width: 100%;
   text-align: left;
 }
@@ -394,6 +397,11 @@ ul {
   .nav.active li:hover {
     transform: translate(1rem);
   }
+
+  .img-container {
+    width: 40vw;
+    height: 30vw;
+  }
 }
 
 @media (max-width: 600px) {
@@ -405,5 +413,9 @@ ul {
 
   .new-product {
     width: 70%;
+  }
+
+  .product-detail {
+    max-width: 80%;
   }
 }

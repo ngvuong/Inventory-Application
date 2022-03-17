@@ -49,6 +49,7 @@ exports.item_create_get = function (req, res, next) {
       if (err) {
         return next(err);
       }
+
       res.render('item_form', {
         title: 'New Product',
         categories: results.categories,
@@ -110,7 +111,7 @@ exports.item_create_post = [
       stock: req.body.stock,
       img_src: req.file ? `/images/${req.file.filename}` : '',
     });
-    console.log(item);
+
     if (!errors.isEmpty()) {
       async.parallel(
         {

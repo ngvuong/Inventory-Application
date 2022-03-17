@@ -13,7 +13,7 @@
     <span>Price</span>
     <span>Stock</span>
   </li>
-  <% for(item of items) { %> 
+  <% for(const item of items) { %> 
     <% if(item.brand.name === brand.name) { %> 
       <li class="product-info">
         <a href=<%= item.url %> > <%= item.brand.name %> <%= item.name %> </a>
