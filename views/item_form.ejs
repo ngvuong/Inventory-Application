@@ -9,16 +9,16 @@
       <% } %> 
   </ul>
 <% } %> 
-<% console.log(item) %> 
+<% console.log(category) %> 
 <form method="POST" action="" class="new-product" enctype="multipart/form-data">
   <div class="form-group">
     <label for="name">Name</label>
-    <input type="text" id="name" name="name" placeholder="Product Name" required value="<%= undefined !== item ? item.name : '' %>" >
+    <input type="text" id="name" name="name" placeholder="Product Name" required value="<%= typeof item == 'object' && undefined !== item ? item.name : '' %>" >
   </div>
 
   <div class="form-group">
     <label for="description">Description</label>
-    <textarea name="description" id="description" cols="10" rows="2" placeholder="Product Description" required><%= undefined !== item ? item.description : '' %></textarea>
+    <textarea name="description" id="description" cols="10" rows="2" placeholder="Product Description" required><%= typeof item == 'object' && undefined !== item ? item.description : '' %></textarea>
   </div>
 
   <div class="form-group form-group-row">
@@ -52,13 +52,13 @@
       <label for="price">Price</label>
       <div class="price-input">
         <label for="price">$</label>
-        <input type="number" id="price" name="price" min="0" required value=<%= undefined !== item ? item.price : '' %> >
+        <input type="number" id="price" name="price" min="0" required value=<%= typeof item == 'object' && undefined !== item ? item.price : '' %> >
       </div>
     </div>
 
     <div class="sub-group">
       <label for="stock">Stock</label>
-      <input type="number" id="stock" name="stock" min="0" required value=<%= undefined !== item ? item.stock : '' %> >
+      <input type="number" id="stock" name="stock" min="0" required value=<%= typeof item == 'object' && undefined !== item ? item.stock : '' %> >
     </div>
   </div>
 

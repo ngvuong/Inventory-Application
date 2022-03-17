@@ -1,5 +1,6 @@
 const async = require('async');
 const { body, validationResult } = require('express-validator');
+const fs = require('fs');
 
 const Item = require('../models/item');
 const Category = require('../models/category');
@@ -85,20 +86,21 @@ exports.item_create_post = [
   body('img_src', 'Invalid file type or file too large').custom(
     (image, { req }) => {
       if (
-        !req.file ||
-        (req.file.originalname.match(/\.(png|jpeg|jpg)$/) &&
-          req.file.size < 1000000)
+        req.file &&
+        (!req.file.originalname.match(/\.(png|jpeg|jpg)$/) ||
+          req.file.size > 1000000)
       ) {
-        return true;
+        fs.unlink(req.file.path, (err) => {
+          if (err) return false;
+        });
+        return false;
       }
-      return false;
+      return true;
     }
   ),
   (req, res, next) => {
     const errors = validationResult(req);
-    const err = [...errors.array()];
-    err.push({ msg: 'invalid' });
-    console.log(err);
+
     const item = new Item({
       name: req.body.name,
       description: req.body.description,
