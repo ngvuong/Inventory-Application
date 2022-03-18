@@ -5,8 +5,8 @@
 <main class="product-detail">
 
 <div class="img-container">
-  <% if(item.img_src) { %> 
-    <img src=<%= item.img_src%> class="item-image" alt="<%= item.brand.name %> <%= item.name %>" >
+  <% if(item.img_src && fileExists) { %> 
+    <img src="/<%= item.img_src%>" class="item-image" alt="<%= item.brand.name %> <%= item.name %>" >
   <% } else { %>
       <span>?</span>
     <% } %>  
@@ -44,8 +44,8 @@
   <hr>
 </ul>
 
-<button class="btn-primary btn-update"><a href="/catalog/item/<%= item._id %>/update">UPDATE PRODUCT</a></button>
-<button class="btn-primary btn-delete"><a href="/catalog/item/<%= item._id %>/delete">REMOVE PRODUCT</a></button>
+<button class="btn-primary btn-update"><a href="<%= item.url %>/update">UPDATE PRODUCT</a></button>
+<button class="btn-primary"><a href="<%= item.url %>/delete">REMOVE PRODUCT</a></button>
 
 </main>
 </body>

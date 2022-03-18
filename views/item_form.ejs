@@ -4,13 +4,13 @@
 
 <% if(locals.errors) { %> 
   <ul class="error">
-    <% for(error of errors) { %> 
+    <% for(const error of errors) { %> 
       <li>- <%= error.msg %></li>
       <% } %> 
   </ul>
 <% } %> 
 
-<form method="POST" action="" class="new-product" enctype="multipart/form-data">
+<form method="POST" action="" class="form-main" enctype="multipart/form-data">
   <div class="form-group">
     <label for="name">Name</label>
     <input type="text" id="name" name="name" placeholder="Product Name" required value="<%= typeof item !== 'undefined' ? item.name : '' %>" >
@@ -69,7 +69,21 @@
     <input type="file" name="img_src" id="image">
   </div>
 
-  <button class="btn-submit">Submit</button>
+  <% if(typeof update !== 'undefined') { %> 
+    <div class="form-group">
+      <label for="password">ADMIN PASSWORD</label>
+      <input type="password" id="password" name="password">
+    </div>
+    <div class="error"><%= typeof error !== 'undefined' ? error : ''%> </div>
+  <% } %> 
+
+  <button class="btn-primary btn-submit">SUBMIT</button>
+
+  <% if(typeof item !== 'undefined') { %> 
+    <button class="btn-primary btn-cancel" type="button"><a href="<%= item.url %> ">CANCEL</a></button>
+  <% } else {%> 
+    <button class="btn-primary btn-cancel" type="button"><a href="/catalog/items">CANCEL</a></button>
+    <% } %> 
 </form>
 
 </body>

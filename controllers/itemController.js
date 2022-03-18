@@ -27,9 +27,20 @@ exports.item_list = async function (req, res, next) {
 
 exports.item_detail = async function (req, res, next) {
   const { id } = req.params;
+  let fileExists;
+
   try {
     const item = await Item.findById(id).populate('category').populate('brand');
-    res.render('item_detail', { title: item.name, item });
+    if (item.img_src) {
+      fs.access('public/' + item.img_src, fs.constants.F_OK, (err) => {
+        if (err) {
+          fileExists = false;
+        } else fileExists = true;
+        res.render('item_detail', { title: item.name, item, fileExists });
+      });
+    } else {
+      res.render('item_detail', { title: item.name, item, fileExists });
+    }
   } catch (err) {
     next(err);
   }
@@ -109,7 +120,7 @@ exports.item_create_post = [
       brand: req.body.brand,
       price: req.body.price,
       stock: req.body.stock,
-      img_src: req.file ? `/images/${req.file.filename}` : '',
+      img_src: req.file ? `images/${req.file.filename}` : '',
     });
 
     if (!errors.isEmpty()) {
@@ -203,7 +214,6 @@ exports.item_update_get = function (req, res, next) {
     },
     function (err, results) {
       if (err) {
-        console.log(err);
         return next(err);
       }
       res.render('item_form', {
@@ -211,7 +221,110 @@ exports.item_update_get = function (req, res, next) {
         item: results.item,
         categories: results.categories,
         brands: results.brands,
+        update: true,
       });
     }
   );
 };
+
+exports.item_update_post = [
+  body('name', 'Product name must not be empty')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('description', 'Product description must not be empty')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('category', 'Product category must be specified')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('brand', 'Product brand must be specified')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('price', 'Product price must be specified')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('stock', 'Product stock must be specified')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('img_src', 'Invalid file type or file too large').custom(
+    (image, { req }) => {
+      if (
+        req.file &&
+        (!req.file.originalname.match(/\.(png|jpeg|jpg)$/) ||
+          req.file.size > 1000000)
+      ) {
+        fs.unlink(req.file.path, (err) => {
+          if (err) return false;
+        });
+        return false;
+      }
+      return true;
+    }
+  ),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    const item = new Item({
+      name: req.body.name,
+      description: req.body.description,
+      category: req.body.category,
+      brand: req.body.brand,
+      price: req.body.price,
+      stock: req.body.stock,
+      img_src: req.file ? `images/${req.file.filename}` : '',
+      _id: req.params.id,
+    });
+
+    if (!errors.isEmpty() || process.env.ADMIN_PASSWORD !== req.body.password) {
+      if (item.img_src) {
+        fs.unlink('public/' + item.img_src, (err) => {
+          if (err) return next(err);
+        });
+      }
+
+      async.parallel(
+        {
+          categories: function (callback) {
+            Category.find(callback);
+          },
+          brands: function (callback) {
+            Brand.find(callback);
+          },
+        },
+        function (err, results) {
+          if (err) return next(err);
+          res.render('item_form', {
+            title: 'Update Product',
+            item,
+            categories: results.categories,
+            brands: results.brands,
+            errors: errors.array(),
+            update: true,
+            error: 'Incorrect Password',
+          });
+        }
+      );
+      return;
+    } else {
+      Item.findById(req.params.id).exec(function (err, item) {
+        if (err) return next(err);
+        if (item.img_src) {
+          fs.unlink('public/' + item.img_src, (err) => {
+            if (err) return next(err);
+          });
+        }
+      });
+
+      Item.findByIdAndUpdate(req.params.id, item, {}, function (err, theItem) {
+        if (err) return next(err);
+        res.redirect(theItem.url);
+      });
+    }
+  },
+];
