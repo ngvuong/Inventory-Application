@@ -184,3 +184,34 @@ exports.item_delete_post = async function (req, res, next) {
     next(err);
   }
 };
+
+exports.item_update_get = function (req, res, next) {
+  async.parallel(
+    {
+      item: function (callback) {
+        Item.findById(req.params.id)
+          .populate('category')
+          .populate('brand')
+          .exec(callback);
+      },
+      categories: function (callback) {
+        Category.find(callback);
+      },
+      brands: function (callback) {
+        Brand.find(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        console.log(err);
+        return next(err);
+      }
+      res.render('item_form', {
+        title: 'Update Product',
+        item: results.item,
+        categories: results.categories,
+        brands: results.brands,
+      });
+    }
+  );
+};

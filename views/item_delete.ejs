@@ -13,8 +13,8 @@
   </div>
   <div class="error"><%= typeof error !== 'undefined' ? error : ''%> </div>
   <input type="hidden" name="itemid" value="<%= item._id %>">
-  <button class="btn-delete">REMOVE PRODUCT</button>
-  <button class="btn-cancel" type="button"><a href="/catalog/item/<%= item._id %>">CANCEL</a></button>
+  <button class="btn-primary btn-delete">REMOVE PRODUCT</button>
+  <button class="btn-primary btn-cancel" type="button"><a href="/catalog/item/<%= item._id %>">CANCEL</a></button>
 </form>
 
 </main>

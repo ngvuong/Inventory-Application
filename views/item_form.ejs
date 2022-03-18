@@ -27,7 +27,7 @@
       <select name="category" id="category" required>
       <% for(const category of categories) { %>
         <option value=<%= category._id %> 
-          <%= typeof item !== 'undefined' && category._id.toString() === item.category.toString() ? 'selected' : ''%> 
+          <%= typeof item !== 'undefined' && (category._id.toString() === item.category.toString() || category._id.toString() === item.category._id.toString()) ? 'selected' : ''%> 
           >
           <%=category.name %> 
         </option>
@@ -40,7 +40,7 @@
       <select name="brand" id="brand" required>
         <% for(const brand of brands) {%>
           <option value=<%= brand._id %> 
-            <%= typeof item !== 'undefined' && brand._id.toString() === item.brand.toString() ? 'selected' : ''%> 
+            <%= typeof item !== 'undefined' && (brand._id.toString() === item.brand.toString() || brand._id.toString() === item.brand._id.toString()) ? 'selected' : ''%> 
             >
             <%= brand.name %>
           </option>

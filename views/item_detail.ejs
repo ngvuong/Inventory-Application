@@ -44,9 +44,8 @@
   <hr>
 </ul>
 
-<form method="GET" action="/catalog/item/<%= item._id %>/delete">
-  <button class="btn-delete">REMOVE PRODUCT</button>
-</form>
+<button class="btn-primary btn-update"><a href="/catalog/item/<%= item._id %>/update">UPDATE PRODUCT</a></button>
+<button class="btn-primary btn-delete"><a href="/catalog/item/<%= item._id %>/delete">REMOVE PRODUCT</a></button>
 
 </main>
 </body>

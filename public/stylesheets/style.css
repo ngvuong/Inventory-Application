@@ -355,12 +355,7 @@ ul {
   margin: 2rem 0;
 }
 
-#password {
-  display: block;
-}
-
-.btn-delete,
-.btn-cancel {
+.btn-primary {
   width: 100%;
   color: #000;
   font-size: 2rem;
@@ -376,15 +371,18 @@ ul {
   background-color: var(--color-highlight);
 }
 
-.btn-cancel a {
+.btn-primary a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
   color: inherit;
 }
 
-.btn-cancel a:hover {
+.btn-primary a:hover {
   text-decoration: none;
 }
 
-.btn-delete:hover {
+.btn-primary:hover {
   opacity: 0.5;
 }
 

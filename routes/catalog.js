@@ -28,7 +28,7 @@ router.post(
   item_controller.item_create_post
 );
 
-// router.get('/item/:id/update', item_controller.item_update_get);
+router.get('/item/:id/update', item_controller.item_update_get);
 
 // router.post('/item/:id/update', item_controller.item_update_post);
 
