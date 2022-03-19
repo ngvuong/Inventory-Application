@@ -1,5 +1,6 @@
 const async = require('async');
 const { body, validationResult } = require('express-validator');
+const fs = require('fs');
 
 const Item = require('../models/item');
 const Category = require('../models/category');
@@ -24,3 +25,39 @@ exports.category_detail = async function (req, res, next) {
     next(err);
   }
 };
+
+exports.category_create_get = async function (req, res, next) {
+  res.render('category_form', { title: 'New Category' });
+};
+
+exports.category_create_post = [
+  body('name', 'Category name must be specified')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('description', 'Category description must be specified')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    const category = new Category({
+      name: req.body.name,
+      description: req.body.description,
+    });
+
+    if (!errors.isEmpty()) {
+      res.render('category_form', {
+        title: 'New Category',
+        category,
+        errors: errors.array(),
+      });
+    } else {
+      category.save((err) => {
+        if (err) return next(err);
+        res.redirect(category.url);
+      });
+    }
+  },
+];

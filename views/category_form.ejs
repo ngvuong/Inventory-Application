@@ -1,0 +1,36 @@
+<%- include('./partials/layout')%>
+
+<h2 class="page-header"><%= title %></h2>
+
+<main>
+<% if(locals.errors) { %> 
+  <ul class="error">
+    <% for(const error of errors) { %> 
+      <li>- <%= error.msg %> </li>
+    <% } %> 
+  </ul>
+<% } %> 
+
+<form method="POST" action="" class="form-main">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required placeholder="Category Name" value="<%= typeof category !== 'undefined' ? category.name : ''%>">
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <input type="text" id="description" name="description" required placeholder="Category Description" value="<%= typeof category !== 'undefined' ? category.description : ''%>">
+  </div>
+
+  <button class="btn-primary btn-submit">SUBMIT</button>
+
+  <% if(typeof category !== 'undefined') { %> 
+    <button class="btn-primary btn-cancel"><a href="/catalog/category/<%= category._id%>">CANCEL</a></button>
+    <% } else {%> 
+      <button class="btn-primary btn-cancel" type="button"><a href="/catalog/categories">CANCEL</a></button>
+      <% } %> 
+</form>
+
+</main>
+</body>
+</html>
