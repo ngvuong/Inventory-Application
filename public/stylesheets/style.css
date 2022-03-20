@@ -29,6 +29,7 @@ textarea {
 body {
   min-height: 100vh;
   font: 1.6rem 'Lucida Grande', Helvetica, Arial, sans-serif;
+  padding-bottom: 5rem;
 }
 
 a:link,
@@ -84,6 +85,7 @@ ul {
 
 .page-header {
   text-align: center;
+  text-transform: capitalize;
   margin: 3rem 0;
 }
 
@@ -176,6 +178,10 @@ ul {
   padding: 1rem 0;
 }
 
+.product-info a {
+  text-transform: capitalize;
+}
+
 /* Category list, brand list */
 
 .category-list,
@@ -193,6 +199,7 @@ ul {
 .brand-list a {
   display: inline-block;
   width: 100%;
+  text-transform: capitalize;
 }
 
 .category-list a:hover,
@@ -257,8 +264,9 @@ ul {
   grid-template-columns: repeat(3, 1fr);
 }
 
-.category-available {
+.availability {
   text-align: center;
+  text-transform: capitalize;
   margin: 2rem 0;
 }
 
@@ -266,16 +274,14 @@ ul {
   text-transform: capitalize;
 }
 
-/* Brand details page */
-
-.brand-available {
-  text-align: center;
-  margin: 2rem 0;
+.category-detail button {
+  display: block;
+  margin: 2rem auto 0;
 }
 
 /* New product page */
 
-.new-product {
+.form-main {
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -283,7 +289,7 @@ ul {
   margin: 0 auto;
 }
 
-.new-product * {
+.form-main * {
   font-size: 2rem;
 }
 
@@ -330,12 +336,13 @@ ul {
   outline: none;
 }
 
-.btn-submit {
-  font-family: inherit;
-  text-transform: uppercase;
-  background-color: var(--color-highlight);
-  padding: 1rem;
-  border: none;
+.form-main button {
+  margin: 0;
+}
+
+.btn-primary.btn-submit,
+.btn-primary.btn-delete {
+  padding: 0.5rem;
 }
 
 .error {
@@ -345,7 +352,7 @@ ul {
 
 /* Delete Entries */
 
-.product-delete {
+.delete-container {
   max-width: 60%;
   margin: 0 auto;
   text-align: center;
@@ -359,12 +366,16 @@ ul {
   width: 100%;
   color: #000;
   font-size: 2rem;
+  font-family: inherit;
   font-weight: bolder;
   background-color: var(--color-danger);
-  padding: 0.5rem;
   border: none;
   margin-top: 2rem;
   cursor: pointer;
+}
+
+.btn-update {
+  background-color: var(--color-link);
 }
 
 .btn-cancel {
@@ -376,6 +387,7 @@ ul {
   width: 100%;
   height: 100%;
   color: inherit;
+  padding: 0.5rem;
 }
 
 .btn-primary a:hover {
@@ -384,6 +396,17 @@ ul {
 
 .btn-primary:hover {
   opacity: 0.5;
+}
+
+/* Delete Category */
+
+.category-products {
+  width: max-content;
+  margin: 2rem auto;
+}
+
+.category-products a {
+  text-transform: capitalize;
 }
 
 @media (max-width: 768px) {
@@ -434,7 +457,7 @@ ul {
     width: 95%;
   }
 
-  .new-product {
+  .form-main {
     width: 70%;
   }
 

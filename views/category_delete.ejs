@@ -1,0 +1,31 @@
+<%- include('./partials/layout')%> 
+
+<h2 class="page-header">Remove <%= category.name %> </h2>
+
+<main class="delete-container">
+
+<p class="confirmation">Remove this category and all associated products?</p>
+
+<% if(items.length) { %> 
+  <ol class="category-products">
+    <% for(const item of items) { %>
+      <li><a href="<%= item.url %>"><%= item.brand.name %> <%= item.name %></a> </li>
+    <% } %>  
+  </ol>
+<% } %> 
+
+<form method="POST" action="<%= category.url %>/delete">
+  <div class="form-group">
+    <label for="password">ADMIN PASSWORD</label>
+    <input type="password" id="password" name="password">
+  </div>
+
+  <div class="error"><%= typeof error !== 'undefined' ? error : ''%> </div>
+  <input type="hidden" name="categoryid" value="<%= category._id %>">
+  <button class="btn-primary btn-delete">REMOVE CATEGORY</button>
+  <button class="btn-primary btn-cancel" type="button"><a href="<%= category.url %>">CANCEL</a></button>
+</form>
+  
+</main>
+</body>
+</html>

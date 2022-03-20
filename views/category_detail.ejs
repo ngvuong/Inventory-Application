@@ -5,25 +5,35 @@
 <main>
 
 <% const name = category.name.substr(-1) === 's' ? category.name : category.name + 's' %> 
-<p class="category-available"><%= name %> Available</p>
+<% const availableItems = items.filter(item => item.category.name === category.name) %> 
 
 <ul class="product-list category-detail">
-  <li class="list-headers">
-    <span>Product</span>
-    <span>Price</span>
-    <span>Stock</span>
-  </li>
-  <% for(const item of items) { %> 
-    <% if(item.category.name === category.name) {%> 
-      <li class="product-info">
-        <a href=<%= item.url %> ><%= item.brand.name %> <%= item.name %> </a>
-        <span>$<%= item.price %> </span>
-        <span><%= item.stock %></span>
+  <% if(availableItems.length) { %> 
+    <p class="availability"><%= name %> Available</p>
+
+      <li class="list-headers">
+        <span>Product</span>
+        <span>Price</span>
+        <span>Stock</span>
       </li>
-      <hr>
+      <% for(const item of availableItems) { %> 
+          <li class="product-info">
+            <a href=<%= item.url %> ><%= item.brand.name %> <%= item.name %> </a>
+            <span>$<%= item.price %> </span>
+            <span><%= item.stock %></span>
+          </li>
+          <hr>
+      <% } %> 
+  <% } else { %> 
+        <p class="availability">There are no <%= name %> available</p>
+        <a href="/catalog/item/create" class="add-product">+ New Product</a>
     <% } %> 
-  <% } %> 
+
+  <button class="btn-primary btn-update"><a href="<%= category.url %>/update">Update Category</a></button>
+  <button class="btn-primary"><a href="<%= category.url %>/delete">Remove Category</a></button>
 </ul>
+
+
 
 </main>
 </body>

@@ -61,3 +61,73 @@ exports.category_create_post = [
     }
   },
 ];
+
+exports.category_delete_get = async function (req, res, next) {
+  const { id } = req.params;
+
+  async.parallel(
+    {
+      category: function (callback) {
+        Category.findById(id).exec(callback);
+      },
+
+      items: function (callback) {
+        Item.find({ category: id }).populate('brand').exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) return next(err);
+      res.render('category_delete', {
+        title: 'Delete Category',
+        category: results.category,
+        items: results.items,
+      });
+    }
+  );
+};
+
+exports.category_delete_post = async function (req, res, next) {
+  const { categoryid, password } = req.body;
+
+  if (process.env.ADMIN_PASSWORD !== password) {
+    async.parallel(
+      {
+        category: function (callback) {
+          Category.findById(categoryid).exec(callback);
+        },
+
+        items: function (callback) {
+          Item.find({ category: categoryid }).populate('brand').exec(callback);
+        },
+      },
+      function (err, results) {
+        if (err) return next(err);
+        res.render('category_delete', {
+          title: 'Delete Category',
+          category: results.category,
+          items: results.items,
+          error: 'Incorrect Password',
+        });
+      }
+    );
+  } else {
+    try {
+      await Category.findByIdAndDelete(categoryid);
+      const items = await Item.find({ category: categoryid });
+      items.forEach((item) => {
+        Item.findByIdAndDelete(item._id, (err) => {
+          if (err) return next(err);
+        });
+
+        if (item.img_src) {
+          fs.unlink('public/' + item.img_src, (err) => {
+            if (err) return next(err);
+          });
+        }
+      });
+      res.redirect('/catalog/categories');
+    } catch (err) {
+      next(err);
+    }
+  }
+};
