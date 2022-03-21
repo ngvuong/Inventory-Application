@@ -4,26 +4,34 @@
 
 <main>
 
-<p class="availability"><%= brand.name %> Products Available</p>
-
+  
 <ul class="product-list">
-  <li class="list-headers">
-    <span>Product</span>
-    <span>Category</span>
-    <span>Price</span>
-    <span>Stock</span>
-  </li>
-  <% for(const item of items) { %> 
-    <% if(item.brand.name === brand.name) { %> 
-      <li class="product-info">
-        <a href=<%= item.url %> > <%= item.brand.name %> <%= item.name %> </a>
-        <a href=<%= item.category.url %> > <%= item.category.name %> </a>
-        <span>$<%= item.price %> </span>
-        <span> <%= item.stock %> </span>
-      </li>
-      <hr>
+  <% if(items.length) { %> 
+    <p class="availability"><%= brand.name %> Products Available</p>
+
+    <li class="list-headers">
+      <span>Product</span>
+      <span>Category</span>
+      <span>Price</span>
+      <span>Stock</span>
+    </li>
+
+    <% for(const item of items) { %> 
+        <li class="product-info">
+          <a href=<%= item.url %> > <%= item.brand.name %> <%= item.name %> </a>
+          <a href=<%= item.category.url %> > <%= item.category.name %> </a>
+          <span>$<%= item.price %> </span>
+          <span> <%= item.stock %> </span>
+        </li>
+        <hr>
     <% } %> 
-  <% } %> 
+  <% } else { %>
+    <p class="availability">There are no <%= brand.name %> products available</p>
+    <a href="/catalog/item/create" class="add-product">+ New Product</a>
+    <% } %>  
+
+  <button class="btn-primary btn-update"><a href="<%= brand.url %>/update">Update Brand</a></button>
+  <button class="btn-primary"><a href="<%= brand.url %>/delete">Remove Brand</a></button>
 </ul>
 
 </main>

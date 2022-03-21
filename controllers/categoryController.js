@@ -4,7 +4,6 @@ const fs = require('fs');
 
 const Item = require('../models/item');
 const Category = require('../models/category');
-const Brand = require('../models/brand');
 
 exports.category_list = async function (req, res, next) {
   try {
@@ -18,7 +17,9 @@ exports.category_list = async function (req, res, next) {
 exports.category_detail = async function (req, res, next) {
   const { id } = req.params;
   try {
-    const items = await Item.find().populate('category').populate('brand');
+    const items = await Item.find({ category: id })
+      .populate('category')
+      .populate('brand');
     const category = await Category.findById(id);
     res.render('category_detail', { title: category.name, category, items });
   } catch (err) {

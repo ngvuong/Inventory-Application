@@ -1,0 +1,46 @@
+<%- include('./partials/layout')%> 
+
+<h2 class="page-header"><%= title %> </h2>
+
+<main>
+
+<% if(locals.errors) { %> 
+  <ul class="error">
+    <% for(const error of errors) { %> 
+      <li>- <%= error.msg %> </li>
+    <% } %> 
+  </ul>
+<% } %> 
+
+<form method="POST" action="" class="form-main">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required placeholder="Brand Name" value="<%= typeof brand !== 'undefined' ? brand.name : ''%>">
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea name="description" id="description" cols="10" rows="2" placeholder="Brand Description" required><%= typeof brand !== 'undefined' ? brand.description : '' %></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="country">Country</label>
+    <input type="text" id="country" name="country" required placeholder="Brand Country" value="<%= typeof brand !== 'undefined' ? brand.country : ''%>">
+  </div>
+  
+  <% if(typeof update !== 'undefined') { %> 
+    <%- include('./partials/admin_validation') %> 
+  <% } %> 
+
+  <button class="btn-primary btn-submit">SUBMIT</button>
+
+  <% if(typeof brand !== 'undefined') { %> 
+    <button class="btn-primary btn-cancel" type="button"><a href="<%= brand.url%>">CANCEL</a></button>
+  <% } else {%> 
+    <button class="btn-primary btn-cancel" type="button"><a href="/catalog/brands">CANCEL</a></button>
+    <% } %> 
+</form>
+
+</main>
+</body>
+</html>

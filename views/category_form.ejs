@@ -19,7 +19,7 @@
 
   <div class="form-group">
     <label for="description">Description</label>
-    <input type="text" id="description" name="description" required placeholder="Category Description" value="<%= typeof category !== 'undefined' ? category.description : ''%>">
+    <textarea name="description" id="description" cols="10" rows="2" placeholder="Category Description" required><%= typeof category !== 'undefined' ? category.description : '' %></textarea>
   </div>
 
   <% if(typeof update !== 'undefined') { %> 
