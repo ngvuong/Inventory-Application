@@ -312,10 +312,10 @@ exports.item_update_post = [
       );
       return;
     } else {
-      Item.findById(req.params.id).exec(function (err, item) {
+      Item.findById(req.params.id).exec(function (err, data) {
         if (err) return next(err);
-        if (item.img_src) {
-          fs.unlink('public/' + item.img_src, (err) => {
+        if (data.img_src && data.img_src !== item.img_src) {
+          fs.unlink('public/' + data.img_src, (err) => {
             if (err) return next(err);
           });
         }
