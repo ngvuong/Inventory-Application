@@ -68,9 +68,9 @@ router.get('/brand/create', brand_controller.brand_create_get);
 
 router.post('/brand/create', brand_controller.brand_create_post);
 
-// router.get('/brand/:id/delete', brand_controller.brand_delete_get);
+router.get('/brand/:id/delete', brand_controller.brand_delete_get);
 
-// router.post('/brand/:id/delete', brand_controller.brand_delete_post);
+router.post('/brand/:id/delete', brand_controller.brand_delete_post);
 
 // router.get('/brand/:id/update', brand_controller.brand_update_get);
 

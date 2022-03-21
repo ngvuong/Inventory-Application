@@ -1,0 +1,27 @@
+<%- include('./partials/layout')%> 
+
+<h2 class="page-header">Remove <%= brand.name %> </h2>
+
+<main class="delete-container">
+
+<p class="confirmation">Remove this brand and all associated products?</p>
+
+<% if(items.length) { %> 
+  <ol class="products">
+    <% for(const item of items) { %>
+      <li><a href="<%= item.url %>"><%= item.brand.name %> <%= item.name %></a> </li>
+    <% } %>  
+  </ol>
+<% } %> 
+
+<form method="POST" action="<%= brand.url %>/delete">
+  <%- include('./partials/admin_validation') %> 
+
+  <input type="hidden" name="brandid" value="<%= brand._id %>">
+  <button class="btn-primary btn-delete">REMOVE BRAND</button>
+  <button class="btn-primary btn-cancel" type="button"><a href="<%= brand.url %>">CANCEL</a></button>
+</form>
+  
+</main>
+</body>
+</html>

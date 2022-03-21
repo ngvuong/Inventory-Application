@@ -1,5 +1,6 @@
 const async = require('async');
 const { body, validationResult } = require('express-validator');
+const fs = require('fs');
 
 const Item = require('../models/item');
 const Category = require('../models/category');
@@ -67,3 +68,70 @@ exports.brand_create_post = [
     }
   },
 ];
+
+exports.brand_delete_get = function (req, res, next) {
+  const { id } = req.params;
+
+  async.parallel(
+    {
+      brand: function (callback) {
+        Brand.findById(id).exec(callback);
+      },
+
+      items: function (callback) {
+        Item.find({ brand: id }).populate('brand').exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) return next(err);
+      res.render('brand_delete', {
+        title: 'Remove Brand',
+        items: results.items,
+        brand: results.brand,
+      });
+    }
+  );
+};
+
+exports.brand_delete_post = async function (req, res, next) {
+  const { brandid, password } = req.body;
+
+  if (process.env.ADMIN_PASSWORD !== password) {
+    async.parallel(
+      {
+        brand: function (callback) {
+          Brand.findById(brandid).exec(callback);
+        },
+
+        items: function (callback) {
+          Item.find({ brand: brandid }).populate('brand').exec(callback);
+        },
+      },
+      function (err, results) {
+        if (err) return next(err);
+        res.render('brand_delete', {
+          title: 'Remove Brand',
+          items: results.items,
+          brand: results.brand,
+          error: 'Incorrect Password',
+        });
+      }
+    );
+  } else {
+    try {
+      const items = await Item.find({ brand: brandid });
+
+      for (const item of items) {
+        if (item.img_src) {
+          await fs.promises.unlink('public/' + item.img_src);
+        }
+        await Item.findByIdAndDelete(item._id);
+      }
+
+      await Brand.findByIdAndDelete(brandid);
+      res.redirect('/catalog/brands');
+    } catch (err) {
+      next(err);
+    }
+  }
+};

@@ -401,12 +401,12 @@ ul {
 
 /* Delete Category */
 
-.category-products {
+.products {
   width: max-content;
   margin: 2rem auto;
 }
 
-.category-products a {
+.products a {
   text-transform: capitalize;
 }
 
