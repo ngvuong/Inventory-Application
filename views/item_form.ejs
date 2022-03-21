@@ -70,11 +70,7 @@
   </div>
 
   <% if(typeof update !== 'undefined') { %> 
-    <div class="form-group">
-      <label for="password">ADMIN PASSWORD</label>
-      <input type="password" id="password" name="password">
-    </div>
-    <div class="error"><%= typeof error !== 'undefined' ? error : ''%> </div>
+    <%- include('./partials/admin_validation') %> 
   <% } %> 
 
   <button class="btn-primary btn-submit">SUBMIT</button>

@@ -22,10 +22,14 @@
     <input type="text" id="description" name="description" required placeholder="Category Description" value="<%= typeof category !== 'undefined' ? category.description : ''%>">
   </div>
 
+  <% if(typeof update !== 'undefined') { %> 
+    <%- include('./partials/admin_validation') %> 
+  <% } %> 
+
   <button class="btn-primary btn-submit">SUBMIT</button>
 
   <% if(typeof category !== 'undefined') { %> 
-    <button class="btn-primary btn-cancel"><a href="/catalog/category/<%= category._id%>">CANCEL</a></button>
+    <button class="btn-primary btn-cancel" type="button"><a href="<%= category.url%>">CANCEL</a></button>
     <% } else {%> 
       <button class="btn-primary btn-cancel" type="button"><a href="/catalog/categories">CANCEL</a></button>
       <% } %> 

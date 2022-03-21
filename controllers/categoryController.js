@@ -26,7 +26,7 @@ exports.category_detail = async function (req, res, next) {
   }
 };
 
-exports.category_create_get = async function (req, res, next) {
+exports.category_create_get = function (req, res, next) {
   res.render('category_form', { title: 'New Category' });
 };
 
@@ -112,7 +112,6 @@ exports.category_delete_post = async function (req, res, next) {
     );
   } else {
     try {
-      await Category.findByIdAndDelete(categoryid);
       const items = await Item.find({ category: categoryid });
       items.forEach((item) => {
         Item.findByIdAndDelete(item._id, (err) => {
@@ -125,9 +124,65 @@ exports.category_delete_post = async function (req, res, next) {
           });
         }
       });
+      await Category.findByIdAndDelete(categoryid);
       res.redirect('/catalog/categories');
     } catch (err) {
       next(err);
     }
   }
 };
+
+exports.category_update_get = async function (req, res, next) {
+  const { id } = req.params;
+
+  try {
+    const category = await Category.findById(id);
+    res.render('category_form', {
+      title: 'Update Category',
+      category,
+      update: true,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.category_update_post = [
+  body('name', 'Category name must be specified')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('description', 'Category description must be specified')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    const category = new Category({
+      name: req.body.name,
+      description: req.body.description,
+      _id: req.params.id,
+    });
+
+    if (!errors.isEmpty() || process.env.ADMIN_PASSWORD !== req.body.password) {
+      res.render('category_form', {
+        title: 'Update Category',
+        category,
+        update: true,
+        errors: errors.array(),
+        error: 'Incorrect Password',
+      });
+    } else {
+      Category.findByIdAndUpdate(
+        req.params.id,
+        category,
+        {},
+        function (err, theCategory) {
+          if (err) return next(err);
+          res.redirect(theCategory.url);
+        }
+      );
+    }
+  },
+];

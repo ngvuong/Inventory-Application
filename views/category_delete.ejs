@@ -15,12 +15,8 @@
 <% } %> 
 
 <form method="POST" action="<%= category.url %>/delete">
-  <div class="form-group">
-    <label for="password">ADMIN PASSWORD</label>
-    <input type="password" id="password" name="password">
-  </div>
+  <%- include('./partials/admin_validation') %> 
 
-  <div class="error"><%= typeof error !== 'undefined' ? error : ''%> </div>
   <input type="hidden" name="categoryid" value="<%= category._id %>">
   <button class="btn-primary btn-delete">REMOVE CATEGORY</button>
   <button class="btn-primary btn-cancel" type="button"><a href="<%= category.url %>">CANCEL</a></button>

@@ -7,11 +7,8 @@
 <p class="confirmation">Are you sure you want to remove this product?</p>
 
 <form method="POST" action="<%= item.url %>/delete">
-  <div class="form-group">
-    <label for="password">ADMIN PASSWORD</label>
-    <input type="password" id="password" name="password">
-  </div>
-  <div class="error"><%= typeof error !== 'undefined' ? error : ''%> </div>
+  <%- include('./partials/admin_validation') %> 
+
   <input type="hidden" name="itemid" value="<%= item._id %>">
   <button class="btn-primary btn-delete">REMOVE PRODUCT</button>
   <button class="btn-primary btn-cancel" type="button"><a href="<%= item.url %>">CANCEL</a></button>
