@@ -9,7 +9,11 @@ const Brand = require('../models/brand');
 exports.brand_list = async function (req, res, next) {
   try {
     const brands = await Brand.find();
-    res.render('brand_list', { title: 'Product Brands', brands });
+    res.render('brand_list', {
+      title: 'Product Brands',
+      brands,
+      activePage: 'brand',
+    });
   } catch (err) {
     next(err);
   }

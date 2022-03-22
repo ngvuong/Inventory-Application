@@ -21,10 +21,36 @@
         <div class="menu-bar"></div>
         <nav class="nav">
           <ul>
-            <li><a href="/catalog">Inventory</a></li>
-            <li><a href="/catalog/items">Products</a></li>
-            <li><a href="/catalog/categories">Categories</a></li>
-            <li><a href="/catalog/brands">Brands</a></li>
+            <% const active = typeof activePage !== 'undefined' ? activePage :
+            ''%>
+            <li>
+              <a
+                href="/catalog"
+                class="<%= active === 'inventory' ? 'active-page' : ''%>"
+                >Inventory</a
+              >
+            </li>
+            <li>
+              <a
+                href="/catalog/items"
+                class="<%= active === 'product' ? 'active-page' : ''%>"
+                >Products</a
+              >
+            </li>
+            <li>
+              <a
+                href="/catalog/categories"
+                class="<%= active === 'category' ? 'active-page' : ''%>"
+                >Categories</a
+              >
+            </li>
+            <li>
+              <a
+                href="/catalog/brands"
+                class="<%= active === 'brand' ? 'active-page' : ''%>"
+                >Brands</a
+              >
+            </li>
           </ul>
         </nav>
       </div>

@@ -8,7 +8,11 @@ const Category = require('../models/category');
 exports.category_list = async function (req, res, next) {
   try {
     const categories = await Category.find();
-    res.render('category_list', { title: 'Product Categories', categories });
+    res.render('category_list', {
+      title: 'Product Categories',
+      categories,
+      activePage: 'category',
+    });
   } catch (err) {
     next(err);
   }
