@@ -11,19 +11,23 @@
       <span>Qty</span>
     </li>
     <% for(const category of categories) { %> 
-      <li class="product-row">
-        <a href=<%= category.url %> ><%=category.name %></a>
-        <select name="product" class="item-select">
-          <option value="0-0">Choose product</option>
-          <% for(const item of items) { %> 
-            <% if(item.category.name === category.name) { %> 
-              <option value=<%=`${item.price}-${item.stock}`%> > <%=item.name %> </option>
-              <% } %> 
-            <% } %> 
-        </select>
-        <span class="item-price">$0</span>
-        <input type="number" class="item-qty" value="0" min="0" max="0">
-      </li>
+      <% rows.forEach((row, i) => { %> 
+        <% if(row.category === category.name) { %> 
+          <li class="product-row">
+            <a href=<%= category.url %> ><%=category.name %></a>
+            <select name="product" class="item-select">
+              <option value="0-0">Choose product</option>
+              <% for(const item of items) { %> 
+                <% if(item.category.name === category.name) { %> 
+                  <option value=<%=`${item.price}-${item.stock}`%> data-category="<%= `${category._id}-${i}` %>" data-item="<%= item._id %>"> <%=item.name %> </option>
+                  <% } %> 
+                <% } %> 
+            </select>
+            <span class="item-price">$0</span>
+            <input type="number" class="item-qty" value="0" min="0" max="0">
+          </li>
+        <% } %> 
+      <% }) %> 
       <button class="btn-add">+</button> 
       <hr>
       <% } %> 

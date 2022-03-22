@@ -10,10 +10,18 @@ exports.index = async function (req, res, next) {
   try {
     const categories = await Category.find();
     const items = await Item.find().populate('category');
+
+    const rows = {};
+    categories.forEach((category) => {
+      const cookies = req.cookies;
+      console.log(cookies);
+      rows = { ...rows, category: [] };
+    });
     res.render('index', {
       title: 'Badminton Inventory',
       categories,
       items,
+      rows,
       activePage: 'inventory',
     });
   } catch (err) {

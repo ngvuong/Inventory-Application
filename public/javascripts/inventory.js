@@ -3,18 +3,34 @@ const inventoryList = document.querySelector('.inventory-list');
 const addBtns = document.querySelectorAll('.btn-add');
 const qtyInputs = document.querySelectorAll('.item-qty');
 
+const storeCookies = (category, item) => {
+  const highestIndex = document.cookie
+    .split(';')
+    .reduce(
+      (index, curr) =>
+        curr.trim().startsWith(category) ? +curr.split('-')[1] + index : index,
+      0
+    );
+
+  document.cookie = `${category}-${highestIndex + 1}=${item}`;
+};
+
 const selectItem = (e) => {
   const [price, stock] = e.target.value.split('-');
   const priceElement = e.target.nextElementSibling;
   const qtyElement = priceElement.nextElementSibling;
+  const { category, item } = e.target.selectedOptions[0].dataset;
+
   priceElement.textContent = `$${price}`;
-  if (0 === parseInt(price)) {
+  if (0 === parseFloat(price)) {
     qtyElement.value = 0;
   } else qtyElement.value = 1;
 
   qtyElement.max = stock;
 
   calculateTotal();
+
+  storeCookies(category, item);
 };
 
 selects.forEach((select) => select.addEventListener('change', selectItem));
