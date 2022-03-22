@@ -2,6 +2,8 @@
 
 <h2 class="page-header"><%= title %></h2>
 
+<main>
+
 <% if(locals.errors) { %> 
   <ul class="error">
     <% for(const error of errors) { %> 
@@ -82,5 +84,6 @@
     <% } %> 
 </form>
 
+</main>
 </body>
 </html>

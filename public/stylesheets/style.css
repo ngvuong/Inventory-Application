@@ -59,12 +59,22 @@ ul {
 }
 
 .header a {
+  display: block;
   color: var(--color-white);
+}
+
+.header a:hover {
+  text-decoration: none;
+}
+
+.title a::first-letter,
+.title-highlight {
+  color: var(--color-link);
 }
 
 .title {
   margin: 1rem 0;
-  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-size: clamp(2.4rem, 5vw, 3.2rem);
 }
 
 .menu-bar {
@@ -89,6 +99,10 @@ ul {
   margin: 3rem 0;
 }
 
+.main-container {
+  text-align: center;
+}
+
 .inventory-list {
   width: 70%;
   margin: 0 auto;
@@ -105,7 +119,7 @@ ul {
 .inventory-list li {
   display: grid;
   grid-template-columns: repeat(4, 1fr) 0.2fr;
-  justify-items: start;
+  justify-items: center;
   align-items: center;
   gap: 1rem;
   padding: 1rem 0;
@@ -115,9 +129,7 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  font-size: 3rem;
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: bolder;
   border: none;
   background: transparent;
@@ -125,7 +137,7 @@ ul {
 }
 
 .btn-remove {
-  color: #ff5a5a;
+  color: var(--color-danger);
 }
 
 .btn-add {
@@ -133,7 +145,7 @@ ul {
 }
 
 .item-select {
-  font-size: inherit;
+  font-size: clamp(1rem, 2vw, 1.6rem);
 }
 
 .item-qty {
@@ -154,10 +166,7 @@ ul {
 /* Product catalog page */
 
 .add-product {
-  position: relative;
-  left: 50%;
   display: inline-block;
-  transform: translate(-50%);
   margin-bottom: 3rem;
 }
 
@@ -429,16 +438,17 @@ ul {
   .nav.active {
     position: absolute;
     top: 3rem;
-    left: -3rem;
+    left: -8rem;
     display: block;
     background-color: #333;
-    border: 1px solid var(--color-highlight);
+    border: 1px solid var(--color-link);
+    box-shadow: 0 0 0.5rem var(--color-link);
   }
 
   .nav.active ul {
     flex-direction: column;
     width: 100%;
-    padding: 1rem;
+    padding: 1.5rem;
   }
 
   .nav.active li:hover {

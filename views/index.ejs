@@ -1,6 +1,6 @@
 <%- include('./partials/layout') %> 
 
-<h2 class="page-header">Inventory</h2>
+<h2 class="page-header">Product Inventory</h2>
 <main>
 
   <ul class="inventory-list">
@@ -17,7 +17,7 @@
           <option value="0-0">Choose a product</option>
           <% for(const item of items) { %> 
             <% if(item.category.name === category.name) { %> 
-              <option value=<%=`${item.price}-${item.stock}`%> ><%=item.name %> </option>
+              <option value=<%=`${item.price}-${item.stock}`%> > <%=item.name %> </option>
               <% } %> 
             <% } %> 
         </select>
