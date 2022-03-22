@@ -135,3 +135,59 @@ exports.brand_delete_post = async function (req, res, next) {
     }
   }
 };
+
+exports.brand_update_get = async function (req, res, next) {
+  const { id } = req.params;
+
+  try {
+    const brand = await Brand.findById(id);
+    res.render('brand_form', { title: 'Update Brand', brand, update: true });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.brand_update_post = [
+  body('name', 'Brand name must be specified')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('description', 'Brand description must be specified')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body('country', 'Brand country must be specified')
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    const brand = new Brand({
+      name: req.body.name,
+      description: req.body.description,
+      country: req.body.country,
+      _id: req.params.id,
+    });
+
+    if (!errors.isEmpty() || process.env.ADMIN_PASSWORD !== req.body.password) {
+      res.render('brand_form', {
+        title: 'Update Brand',
+        brand,
+        errors: errors.array(),
+        update: true,
+        error: 'Incorrect Password',
+      });
+    } else {
+      Brand.findByIdAndUpdate(
+        req.params.id,
+        brand,
+        {},
+        function (err, theBrand) {
+          if (err) return next(err);
+          res.redirect(theBrand.url);
+        }
+      );
+    }
+  },
+];
