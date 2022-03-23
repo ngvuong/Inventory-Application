@@ -6,9 +6,9 @@ const qtyInputs = document.querySelectorAll('.item-qty');
 const storeCookies = (category, item, row) => {
   const cookies = document.cookie.split(';');
   const key = `${category}-${row}`;
-
-  if (cookies.some((cookie) => cookie.trim().includes(key)) && item === '') {
-    document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 GMT;`;
+  if (cookies.some((cookie) => cookie.trim().includes(key)) && !item) {
+    console.log('deleted');
+    document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
   }
 
   document.cookie = `${key}=${item}`;

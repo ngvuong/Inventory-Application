@@ -14,9 +14,18 @@ exports.index = async function (req, res, next) {
     const rows = {};
     const cookies = req.cookies;
     categories.forEach((category) => {
-      console.log(cookies);
+      const key = category._id.toString();
+      rows[key] = [];
 
-      // rows = { ...rows, category: [] };
+      const maxIndex = Object.keys(cookies).reduce(
+        (index, key) => key.trim().startsWith(key) + index,
+        0
+      );
+
+      for (let i = 0; i <= maxIndex; i++) {
+        const itemId = cookies[`${key}-${i}`];
+        rows[key].push(itemId);
+      }
     });
     res.render('index', {
       title: 'Badminton Inventory',
