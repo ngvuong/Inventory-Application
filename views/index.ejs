@@ -12,8 +12,7 @@
     </li>
     <% for(const category of categories) { %> 
       <% rows[category._id.toString()].forEach((row, i) => { %> 
-        <% const [itemId, itemPrice, itemQty] = row !== undefined ? row.split('-') : [row] %> 
-        <% console.log(itemId, itemPrice, itemQty) %> 
+        <% const [itemId, itemPrice, itemQty, itemStock] = row !== undefined ? row.split('-') : [row] %> 
         <li class="product-row" data-rowindex="<%= i %>">
           <a href=<%= category.url %> ><%=category.name %></a>
           <select name="product" class="item-select">
@@ -21,13 +20,16 @@
             <% for(const item of items) { %> 
               <% if(item.category.name === category.name) { %> 
                 <option value=<%=`${item.price}-${item.stock}`%> 
-                <%= typeof row !== 'undefined' && itemId === item._id.toString() ? 'selected' : '' %>  data-category="<%= category._id %>" data-item="<%= item._id %>"> <%=item.name %> 
+                <%= itemId === item._id.toString() ? 'selected' : '' %>  data-category="<%= category._id %>" data-item="<%= item._id %>" data-stock="<%= item.stock %>"> <%=item.name %> 
                 </option>
                 <% } %> 
               <% } %> 
           </select>
-          <span class="item-price">$<%= itemPrice || "0" %> </span>
-          <input type="number" class="item-qty" value="<%= itemQty || '0' %>" min="0" max="0">
+          <span class="item-price">$<%= itemPrice || "0" %></span>
+          <input type="number" class="item-qty" value="<%= itemQty || '0' %>" min="0" max="<%= itemStock || 0 %>">
+          <% if(i !== 0) { %>
+            <button class="btn-remove" onClick="removeRow(event)">×</button>
+          <% } %>  
         </li>
       <% }) %> 
       <button class="btn-add">+</button> 

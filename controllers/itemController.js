@@ -11,26 +11,49 @@ exports.index = async function (req, res, next) {
     const categories = await Category.find();
     const items = await Item.find().populate('category');
 
-    const rows = {};
     const cookies = req.cookies;
-    categories.forEach((category) => {
+    // const rows = {};
+    // categories.forEach((category) => {
+    //   const key = category._id.toString();
+    //   rows[key] = [];
+
+    //   const maxIndex = Object.keys(cookies).reduce((index, cookieKey) => {
+    //     if (cookieKey.trim().startsWith(key)) {
+    //       const cookieIndex = cookieKey.split('-')[1];
+    //       return cookieIndex > index ? cookieIndex : index;
+    //     }
+    //     return index;
+    //     0;
+    //   });
+
+    //   for (let i = 0; i < maxIndex; i++) {
+    //     const itemInfo = cookies[`${key}-${i}`];
+    //     rows[key].push(itemInfo);
+    //   }
+
+    //   if (!rows[key].length) {
+    //     rows[key].push(undefined);
+    //   }
+    // });
+
+    const rows = categories.reduce((rows, category) => {
       const key = category._id.toString();
-      rows[key] = [];
+      let maxIndex = 0;
 
-      const maxIndex = Object.keys(cookies).reduce(
-        (index, cookieKey) => cookieKey.trim().startsWith(key) + index,
-        0
-      );
+      for (const cookieKey in cookies) {
+        if (cookieKey.startsWith(key)) {
+          const cookieIndex = cookieKey.split('-')[1];
+          maxIndex = cookieIndex > maxIndex ? cookieIndex : maxIndex;
+        }
+      }
 
-      for (let i = 0; i < maxIndex; i++) {
+      for (let i = 0; i <= maxIndex; i++) {
         const itemInfo = cookies[`${key}-${i}`];
-        rows[key].push(itemInfo);
+        rows[key] = rows[key] ? [...rows[key], itemInfo] : [itemInfo];
       }
 
-      if (!rows[key].length) {
-        rows[key].push(undefined);
-      }
-    });
+      return rows;
+    }, {});
 
     res.render('index', {
       title: 'Badminton Inventory',

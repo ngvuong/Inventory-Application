@@ -143,6 +143,7 @@ ul {
 }
 
 .btn-remove {
+  height: 2rem;
   color: var(--color-danger);
 }
 
@@ -152,10 +153,12 @@ ul {
 
 .item-select {
   font-size: clamp(1rem, 2vw, 1.6rem);
+  border-color: var(--color-link);
 }
 
 .item-qty {
   width: 5rem;
+  border-color: var(--color-link);
 }
 
 .total {
@@ -474,7 +477,8 @@ ul {
 @media (max-width: 600px) {
   .inventory-list,
   .product-list,
-  .category-list {
+  .category-list,
+  .brand-list {
     width: 95%;
   }
 
