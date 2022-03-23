@@ -3,16 +3,15 @@ const inventoryList = document.querySelector('.inventory-list');
 const addBtns = document.querySelectorAll('.btn-add');
 const qtyInputs = document.querySelectorAll('.item-qty');
 
-const storeCookies = (category, item) => {
-  const highestIndex = document.cookie
-    .split(';')
-    .reduce(
-      (index, curr) =>
-        curr.trim().startsWith(category) ? +curr.split('-')[1] + index : index,
-      0
-    );
+const storeCookies = (category, item, row) => {
+  const cookies = document.cookie.split(';');
+  const key = `${category}-${row}`;
 
-  document.cookie = `${category}-${highestIndex + 1}=${item}`;
+  if (cookies.some((cookie) => cookie.trim().includes(key)) && item === '') {
+    document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 GMT;`;
+  }
+
+  document.cookie = `${key}=${item}`;
 };
 
 const selectItem = (e) => {
@@ -20,6 +19,7 @@ const selectItem = (e) => {
   const priceElement = e.target.nextElementSibling;
   const qtyElement = priceElement.nextElementSibling;
   const { category, item } = e.target.selectedOptions[0].dataset;
+  const { row } = e.target.parentElement.dataset;
 
   priceElement.textContent = `$${price}`;
   if (0 === parseFloat(price)) {
@@ -30,7 +30,7 @@ const selectItem = (e) => {
 
   calculateTotal();
 
-  storeCookies(category, item);
+  storeCookies(category, item, row);
 };
 
 selects.forEach((select) => select.addEventListener('change', selectItem));
@@ -70,6 +70,8 @@ const addRow = (e) => {
   li.insertAdjacentElement('afterend', liCopy);
   liCopy.querySelector('.item-select').addEventListener('change', selectItem);
   liCopy.querySelector('.item-qty').addEventListener('change', calculateTotal);
+
+  liCopy.dataset.row = +li.dataset.row + 1;
 };
 
 addBtns.forEach((btn) => btn.addEventListener('click', addRow));
