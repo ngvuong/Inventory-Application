@@ -18,15 +18,20 @@ exports.index = async function (req, res, next) {
       rows[key] = [];
 
       const maxIndex = Object.keys(cookies).reduce(
-        (index, key) => key.trim().startsWith(key) + index,
+        (index, cookieKey) => cookieKey.trim().startsWith(key) + index,
         0
       );
 
-      for (let i = 0; i <= maxIndex; i++) {
-        const itemId = cookies[`${key}-${i}`];
-        rows[key].push(itemId);
+      for (let i = 0; i < maxIndex; i++) {
+        const itemInfo = cookies[`${key}-${i}`];
+        rows[key].push(itemInfo);
+      }
+
+      if (!rows[key].length) {
+        rows[key].push(undefined);
       }
     });
+
     res.render('index', {
       title: 'Badminton Inventory',
       categories,

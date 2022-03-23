@@ -11,22 +11,24 @@
       <span>Qty</span>
     </li>
     <% for(const category of categories) { %> 
-      <% Object.keys(rows).forEach((key, i) => { %> 
-        <% if(key === category._id.toString()) { %> 
-          <li class="product-row" data-row="<%= i %>">
-            <a href=<%= category.url %> ><%=category.name %></a>
-            <select name="product" class="item-select">
-              <option value="0-0" data-category="<%= category._id %>" data-item="">Choose product</option>
-              <% for(const item of items) { %> 
-                <% if(item.category.name === category.name) { %> 
-                  <option value=<%=`${item.price}-${item.stock}`%> <%= typeof rows[key][i] !== 'undefined' && rows[key][i] === item._id.toString() ? 'selected' : '' %>  data-category="<%= category._id %>" data-item="<%= item._id %>"> <%=item.name %> </option>
-                  <% } %> 
+      <% rows[category._id.toString()].forEach((row, i) => { %> 
+        <% const [itemId, itemPrice, itemQty] = row !== undefined ? row.split('-') : [row] %> 
+        <% console.log(itemId, itemPrice, itemQty) %> 
+        <li class="product-row" data-rowindex="<%= i %>">
+          <a href=<%= category.url %> ><%=category.name %></a>
+          <select name="product" class="item-select">
+            <option value="0-0" data-category="<%= category._id %>" data-item="">Choose product</option>
+            <% for(const item of items) { %> 
+              <% if(item.category.name === category.name) { %> 
+                <option value=<%=`${item.price}-${item.stock}`%> 
+                <%= typeof row !== 'undefined' && itemId === item._id.toString() ? 'selected' : '' %>  data-category="<%= category._id %>" data-item="<%= item._id %>"> <%=item.name %> 
+                </option>
                 <% } %> 
-            </select>
-            <span class="item-price">$0</span>
-            <input type="number" class="item-qty" value="0" min="0" max="0">
-          </li>
-        <% } %> 
+              <% } %> 
+          </select>
+          <span class="item-price">$<%= itemPrice || "0" %> </span>
+          <input type="number" class="item-qty" value="<%= itemQty || '0' %>" min="0" max="0">
+        </li>
       <% }) %> 
       <button class="btn-add">+</button> 
       <hr>
