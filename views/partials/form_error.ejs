@@ -1,0 +1,7 @@
+<% if(locals.errors) { %>
+<ul class="error" role="alert">
+  <% for(const error of errors) { %>
+  <li>- <%= error.msg %></li>
+  <% } %>
+</ul>
+<% } %>

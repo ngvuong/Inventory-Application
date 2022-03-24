@@ -4,13 +4,7 @@
 
 <main>
 
-<% if(locals.errors) { %> 
-  <ul class="error">
-    <% for(const error of errors) { %> 
-      <li>- <%= error.msg %> </li>
-    <% } %> 
-  </ul>
-<% } %> 
+<%- include('./partials/form_error') %> 
 
 <form method="POST" action="" class="form-main">
   <div class="form-group">

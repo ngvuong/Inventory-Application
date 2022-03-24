@@ -48,7 +48,7 @@ exports.item_list = async function (req, res, next) {
   try {
     const items = await Item.find().populate('category').populate('brand');
     res.render('item_list', {
-      title: 'Item Catalog',
+      title: 'Product Catalog',
       items,
       activePage: 'product',
     });
@@ -294,6 +294,7 @@ exports.item_update_post = [
         fs.unlink(req.file.path, (err) => {
           if (err) return false;
         });
+        req.file = null;
         return false;
       }
       return true;
@@ -314,6 +315,11 @@ exports.item_update_post = [
     });
 
     if (!errors.isEmpty() || process.env.ADMIN_PASSWORD !== req.body.password) {
+      const error =
+        process.env.ADMIN_PASSWORD !== req.body.password
+          ? 'Incorrect Password'
+          : null;
+
       if (item.img_src) {
         fs.unlink('public/' + item.img_src, (err) => {
           if (err) return next(err);
@@ -338,7 +344,7 @@ exports.item_update_post = [
             brands: results.brands,
             errors: errors.array(),
             update: true,
-            error: 'Incorrect Password',
+            error,
           });
         }
       );

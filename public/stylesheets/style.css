@@ -312,8 +312,10 @@ ul {
   margin: 0 auto;
 }
 
-.form-main * {
-  font-size: 2rem;
+.form-main input,
+.form-main textarea,
+.form-main select {
+  font-size: 1.6rem;
 }
 
 .form-group {
@@ -493,7 +495,7 @@ ul {
   }
 
   .form-main {
-    width: 70%;
+    width: 80%;
   }
 
   .product-detail {
