@@ -34,7 +34,9 @@ const calculateTotal = (e) => {
 
     return (acc += price * qty);
   }, 0);
-  document.querySelector('.total-price').textContent = `$${totalPrice}`;
+  document.querySelector('.total-price').textContent = `$${totalPrice.toFixed(
+    2
+  )}`;
 };
 
 const selectItem = (e) => {

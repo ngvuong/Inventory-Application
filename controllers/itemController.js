@@ -12,29 +12,6 @@ exports.index = async function (req, res, next) {
     const items = await Item.find().populate('category');
 
     const cookies = req.cookies;
-    // const rows = {};
-    // categories.forEach((category) => {
-    //   const key = category._id.toString();
-    //   rows[key] = [];
-
-    //   const maxIndex = Object.keys(cookies).reduce((index, cookieKey) => {
-    //     if (cookieKey.trim().startsWith(key)) {
-    //       const cookieIndex = cookieKey.split('-')[1];
-    //       return cookieIndex > index ? cookieIndex : index;
-    //     }
-    //     return index;
-    //     0;
-    //   });
-
-    //   for (let i = 0; i < maxIndex; i++) {
-    //     const itemInfo = cookies[`${key}-${i}`];
-    //     rows[key].push(itemInfo);
-    //   }
-
-    //   if (!rows[key].length) {
-    //     rows[key].push(undefined);
-    //   }
-    // });
 
     const rows = categories.reduce((rows, category) => {
       const key = category._id.toString();
@@ -56,7 +33,7 @@ exports.index = async function (req, res, next) {
     }, {});
 
     res.render('index', {
-      title: 'Badminton Inventory',
+      title: 'Badminton Bag',
       categories,
       items,
       rows,

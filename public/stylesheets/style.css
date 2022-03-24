@@ -78,9 +78,6 @@ ul {
 
 .menu-bar {
   display: none;
-}
-
-.menu-bar {
   width: 2rem;
   height: 0.2rem;
   background-color: var(--color-white);
@@ -111,8 +108,10 @@ ul {
   text-align: center;
 }
 
+/* Product Inventory page */
+
 .inventory-list {
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
 }
 
@@ -129,6 +128,12 @@ ul {
   align-items: center;
   gap: 1rem;
   padding: 1rem 0;
+}
+
+.product-row a,
+.item-price,
+.item-qty {
+  font-size: clamp(1rem, 2vw, 1.6rem);
 }
 
 .inventory-list button {
@@ -434,6 +439,7 @@ ul {
     display: flex;
     flex-direction: column;
     row-gap: 0.5rem;
+    cursor: pointer;
   }
 
   .menu-bar {
@@ -466,6 +472,10 @@ ul {
 
   .nav.active .active-page {
     transform: translate(1rem);
+  }
+
+  .inventory-list {
+    width: 90%;
   }
 
   .img-container {
